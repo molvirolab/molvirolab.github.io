@@ -1,0 +1,367 @@
+---
+interface Props {
+  cifPath?: string;
+  height?: string;
+  label?: string;
+}
+
+const { cifPath = "/illustrations/1gc1.cif", height = "600px", label = "HIV-1 gp120 Core" } = Astro.props;
+---
+
+<div class="protein-viewer-wrapper fade-up" style="animation-delay: 0.2s;">
+  <div class="protein-viewer-container" style={`height: ${height};`} data-cif={cifPath}>
+    <div class="viewport"></div>
+    {label && <div class="protein-label">{label}</div>}
+    
+    <div class="viewer-settings-wrapper">
+      <button class="settings-toggle" aria-label="Toggle visual settings">
+        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+      </button>
+      <div class="viewer-controls">
+        <button class="control-btn active" data-model="cartoon" title="Show backbone structure">Cartoon</button>
+        <button class="control-btn" data-model="surface" title="Show molecular volume">Surface</button>
+        <button class="control-btn" data-model="sphere" title="Show atomic space-filling">Spacefill</button>
+      </div>
+    </div>
+
+    <div class="scientific-legend">
+      <div class="legend-item" title="The primary contact area between gp120 and the human CD4 receptor.">
+        <span class="dot cd4-loop"></span> <span>CD4 Binding Loop</span>
+      </div>
+      <div class="legend-item" title="A deep pocket in gp120 where Phenylalanine 43 of CD4 inserts. A major target for drug design.">
+        <span class="dot phe43"></span> <span>Phe43 Pocket</span>
+      </div>
+      <div class="legend-item" title="Required for co-receptor (CCR5/CXCR4) binding after CD4 attachment.">
+        <span class="dot v3-loop"></span> <span>V3 Loop (Co-receptor Site)</span>
+      </div>
+    </div>
+
+    <div class="interaction-hint">Drag to rotate • Scroll to zoom</div>
+  </div>
+  <div class="frame-accent"></div>
+</div>
+
+<script>
+  import * as NGL from 'ngl';
+
+  function initNgl() {
+    const containers = document.querySelectorAll('.protein-viewer-container');
+    
+    containers.forEach((container) => {
+      if (container._ngl_initialized) return;
+      container._ngl_initialized = true;
+
+      const cifPath = container.dataset.cif;
+      const viewport = container.querySelector('.viewport');
+      let stage;
+      let component;
+      
+      if (viewport && cifPath) {
+        stage = new NGL.Stage(viewport, { 
+          backgroundColor: "transparent",
+          sampleLevel: -1
+        });
+
+        function renderModel(style = 'cartoon') {
+          if (!component) return;
+          component.removeAllRepresentations();
+
+          // Base Structure
+          if (style === 'cartoon') {
+            component.addRepresentation("cartoon", { 
+              sele: "polymer",
+              color: "#e2e8f0", 
+              opacity: 0.7, 
+              smoothSheet: true,
+              quality: "high"
+            });
+            component.addRepresentation("backbone", {
+              sele: "polymer",
+              color: "#6366f1",
+              opacity: 0.2,
+              lineOnly: true
+            });
+          } else if (style === 'surface') {
+            component.addRepresentation("surface", {
+              sele: "polymer",
+              color: "#ffffff",
+              opacity: 0.4,
+              useWorker: true,
+              roughness: 0.1,
+              background: true
+            });
+          } else if (style === 'sphere') {
+            component.addRepresentation("spacefill", {
+              sele: "polymer",
+              color: "#ffffff",
+              opacity: 0.3,
+              scale: 0.4
+            });
+          }
+
+          // CD4 Binding Loop
+          component.addRepresentation("cartoon", {
+            sele: ":G and (365-371 or 425-430)",
+            color: "#ff3e3e",
+            radius: 1.2,
+            quality: "high"
+          });
+
+          // Phe43 Pocket
+          component.addRepresentation("ball+stick", {
+            sele: ":C and 43",
+            color: "#4ade80",
+            multipleBond: "symmetric",
+            aspectRatio: 2.0
+          });
+          component.addRepresentation("surface", {
+            sele: ":G and (43 or 42 or 44 or 257 or 368 or 370)",
+            color: "#4ade80",
+            opacity: 0.6,
+            surfaceType: "ms",
+            probeRadius: 1.4
+          });
+
+          // V3 Base/Loop
+          component.addRepresentation("cartoon", {
+            sele: ":G and (295-300 or 330-335 or 420-424)",
+            color: "#00ffff",
+            radius: 1.1,
+            quality: "high"
+          });
+          
+          component.addRepresentation("point", {
+            sele: ":G and (295-300 or 330-335)",
+            color: "#00ffff",
+            size: 3
+          });
+        }
+
+        stage.loadFile(cifPath).then(function (o) {
+          component = o;
+          renderModel('cartoon');
+          o.autoView();
+          stage.setSpin(true);
+        });
+
+        const settingsToggle = container.querySelector('.settings-toggle');
+        const controls = container.querySelector('.viewer-controls');
+        
+        settingsToggle?.addEventListener('click', (e) => {
+          e.stopPropagation();
+          controls?.classList.toggle('visible');
+          settingsToggle.classList.toggle('active');
+        });
+
+        const buttons = container.querySelectorAll('.control-btn');
+        buttons.forEach(btn => {
+          btn.addEventListener('click', () => {
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const model = btn.dataset.model;
+            renderModel(model);
+            // Hide controls after selection on mobile
+            if (window.innerWidth < 768) {
+              controls?.classList.remove('visible');
+              settingsToggle?.classList.remove('active');
+            }
+          });
+        });
+
+        // Close controls when clicking elsewhere in the container
+        container.addEventListener('click', () => {
+          controls?.classList.remove('visible');
+          settingsToggle?.classList.remove('active');
+        });
+
+        viewport.addEventListener('mouseenter', () => stage.setSpin(false));
+        viewport.addEventListener('mouseleave', () => stage.setSpin(true));
+        
+        window.addEventListener("resize", () => stage.handleResize());
+      }
+    });
+  }
+
+  document.addEventListener('astro:after-swap', initNgl);
+  document.addEventListener('DOMContentLoaded', initNgl);
+  initNgl();
+</script>
+
+<style>
+  .protein-viewer-wrapper {
+    position: relative;
+    width: 100%;
+    z-index: 2;
+  }
+
+  .protein-viewer-container {
+    position: relative;
+    width: 100%;
+    background: radial-gradient(circle at center, #111 0%, #050505 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: move;
+  }
+
+  .viewport {
+    width: 100%;
+    height: 100%;
+  }
+
+  .protein-label {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    color: var(--accent-blue, #4facfe);
+    padding: 8px 16px;
+    border-radius: 0;
+    font-size: 0.75rem;
+    pointer-events: none;
+    border-left: 2px solid var(--accent-blue, #4facfe);
+    font-family: var(--font-sans);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 600;
+    z-index: 5;
+  }
+
+  .viewer-settings-wrapper {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    z-index: 20;
+  }
+
+  .settings-toggle {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+  }
+
+  .settings-toggle:hover, .settings-toggle.active {
+    background: var(--accent-blue, #6366f1);
+    border-color: var(--accent-blue, #6366f1);
+  }
+
+  .viewer-controls {
+    display: none;
+    flex-direction: column;
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    animation: slideIn 0.2s ease-out;
+  }
+
+  .viewer-controls.visible {
+    display: flex;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .control-btn {
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    color: white;
+    padding: 10px 16px;
+    font-size: 0.65rem;
+    font-family: var(--font-sans);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: right;
+    min-width: 120px;
+  }
+
+  .control-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .control-btn.active {
+    color: var(--accent-blue, #6366f1);
+    font-weight: bold;
+  }
+
+  .scientific-legend {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 15px;
+    backdrop-filter: blur(8px);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-family: var(--font-sans);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: help;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .cd4-loop { background: #ff3e3e; box-shadow: 0 0 10px #ff3e3e; }
+  .phe43 { background: #4ade80; box-shadow: 0 0 10px #4ade80; }
+  .v3-loop { background: #22d3ee; box-shadow: 0 0 10px #22d3ee; }
+
+  .interaction-hint {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.7rem;
+    pointer-events: none;
+    font-family: var(--font-sans);
+    letter-spacing: 0.05em;
+  }
+
+  .frame-accent {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 100px;
+    height: 100px;
+    border-top: 2px solid var(--accent-blue, #4facfe);
+    border-right: 2px solid var(--accent-blue, #4facfe);
+    z-index: -1;
+    opacity: 0.5;
+  }
+
+  @media (max-width: 768px) {
+    .protein-viewer-container {
+      height: 400px !important;
+    }
+  }
+</style>

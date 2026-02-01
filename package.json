@@ -1,0 +1,18 @@
+{
+  "name": "mj-virology-lab",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.0",
+    "astro": "^5.0.0",
+    "ngl": "^2.4.0",
+    "three": "^0.170.0"
+  }
+}

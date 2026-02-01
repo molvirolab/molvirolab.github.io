@@ -1,0 +1,571 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import { getCollection } from 'astro:content';
+
+const allTeam = await getCollection('team');
+const sortedTeam = allTeam.sort((a, b) => a.data.order - b.data.order);
+
+const pi = sortedTeam.find(member => member.data.role.toLowerCase().includes('pi') || member.data.name.toLowerCase().includes('muzafar'));
+const currentMembers = sortedTeam.filter(member => member !== pi && !member.data.isPast);
+const pastEntries = sortedTeam.filter(member => member.data.isPast);
+const pastStudents = pastEntries.flatMap(entry => entry.data.pastNames || [entry.data.name]);
+
+// For PI content rendering
+const { Content: PiContent } = pi ? await pi.render() : { Content: null };
+
+const icons = {
+  linkedin: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>',
+  twitter: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>',
+  github: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>',
+  email: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>'
+};
+---
+
+<MainLayout 
+  title="Team"
+  description="Meet the researchers at MJ's Lab: Dr. Muzafar Jan (PI) and the dedicated team of trainees and students specializing in virology and biochemistry."
+>
+  <Navigation />
+  <div class="people-container">
+    <header class="section-header fade-up">
+      <span class="section-title">THE COLLECTIVE</span>
+      <h1>People</h1>
+      <p class="subtitle" style="font-size: clamp(1.1rem, 2vw, 1.4rem);">A dedicated group of researchers exploring the molecular frontiers of virology.</p>
+    </header>
+
+    {pi && (
+      <section class="pi-section fade-up">
+        <div class="pi-grid">
+          <div class="pi-image-wrapper">
+            {pi.data.image ? (
+              <img src={pi.data.image} alt={pi.data.name} class="pi-img" />
+            ) : (
+              <div class="image-placeholder pi-img">[ PI PORTRAIT ]</div>
+            )}
+            <div class="pi-socials">
+              {pi.data.linkedin && <a href={pi.data.linkedin} target="_blank" aria-label="LinkedIn" set:html={icons.linkedin} />}
+              {pi.data.twitter && <a href={pi.data.twitter} target="_blank" aria-label="Twitter" set:html={icons.twitter} />}
+              {pi.data.email && <a href={`mailto:${pi.data.email}`} aria-label="Email" set:html={icons.email} />}
+            </div>
+          </div>
+          <div class="pi-info">
+            <span class="role-badge">{pi.data.role}</span>
+            <h2>{pi.data.name}</h2>
+            <div class="pi-bio">
+              {PiContent && <PiContent />}
+            </div>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <section class="members-section">
+      <div class="members-grid">
+        {currentMembers.map((member, index) => (
+          <div class="member-card fade-up" style={`animation-delay: ${index * 0.1}s`}>
+            <div class="member-image">
+              {member.data.image ? (
+                <img src={member.data.image} alt={member.data.name} />
+              ) : (
+                <div class="image-placeholder">[ {member.data.name.toUpperCase()} ]</div>
+              )}
+              <div class="member-overlay">
+                <button 
+                  class="learn-more-btn" 
+                  data-name={member.data.name}
+                  data-role={member.data.role}
+                  data-bio={member.body}
+                  data-image={member.data.image}
+                  data-linkedin={member.data.linkedin}
+                  data-github={member.data.github}
+                  data-email={member.data.email}
+                >LEARN MORE</button>
+              </div>
+            </div>
+            <div class="member-info">
+              <div class="member-header">
+                <h3>{member.data.name}</h3>
+                <div class="social-mini">
+                  {member.data.linkedin && <a href={member.data.linkedin} target="_blank" set:html={icons.linkedin} aria-label="LinkedIn" />}
+                  {member.data.email && <a href={`mailto:${member.data.email}`} set:html={icons.email} aria-label="Email" />}
+                </div>
+              </div>
+              <p class="member-role">{member.data.role}</p>
+              <!-- Hidden bio for SEO indexing -->
+              <div class="seo-bio" style="display: none;">{member.body}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="join-the-team fade-up">
+      <div class="join-card">
+        <span class="section-title">OPPORTUNITIES</span>
+        <h2>Join the Lab</h2>
+        <p>We are always looking for passionate researchers, students, and postdocs to join our quest in molecular virology. If you are interested in our work, please reach out.</p>
+        <div class="contact-action">
+           <a href="mailto:muzafarjan@gmail.com" class="cta-button">SEND YOUR CV</a>
+        </div>
+      </div>
+    </section>
+
+    {pastStudents.length > 0 && (
+      <section class="alumni-section fade-up">
+        <header class="alumni-header">
+          <span class="section-title">CHRONICLE</span>
+          <h2>Alumni</h2>
+        </header>
+        <div class="alumni-grid">
+          {pastStudents.map((name) => (
+            <div class="alumni-item">
+              <span>{name}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Modal Structure -->
+    <div id="member-modal" class="modal">
+      <div class="modal-content">
+        <button class="close-modal">&times;</button>
+        <div class="modal-body-layout">
+          <div class="modal-image-col">
+            <img id="modal-img" src="" alt="" />
+          </div>
+          <div class="modal-info-col">
+            <span id="modal-role" class="role-badge"></span>
+            <h2 id="modal-name"></h2>
+            <div id="modal-bio" class="modal-bio-text"></div>
+            <div class="modal-socials" id="modal-socials">
+              <!-- JS will populate -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</MainLayout>
+
+<script>
+  const modal = document.getElementById('member-modal');
+  const closeBtn = document.querySelector('.close-modal');
+  const learnMoreBtns = document.querySelectorAll('.learn-more-btn');
+
+  const icons = {
+    linkedin: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>',
+    github: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>',
+    email: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>'
+  };
+
+  learnMoreBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const { name, role, bio, image, linkedin, github, email } = btn.dataset;
+      
+      const modalName = document.getElementById('modal-name');
+      const modalRole = document.getElementById('modal-role');
+      const modalBio = document.getElementById('modal-bio');
+      const modalImg = document.getElementById('modal-img');
+
+      if (modalName) modalName.textContent = name || '';
+      if (modalRole) modalRole.textContent = role || '';
+      if (modalBio && bio) modalBio.innerHTML = `<p>${bio.replace(/\n/g, '</p><p>')}</p>`;
+      if (modalImg) {
+        modalImg.src = image || '';
+        modalImg.alt = name || '';
+      }
+
+      const socialContainer = document.getElementById('modal-socials');
+      if (socialContainer) {
+        socialContainer.innerHTML = '';
+        if (linkedin) socialContainer.innerHTML += `<a href="${linkedin}" target="_blank" class="modal-social-link">${icons.linkedin} LinkedIn</a>`;
+        if (github) socialContainer.innerHTML += `<a href="${github}" target="_blank" class="modal-social-link">${icons.github} GitHub</a>`;
+        if (email) socialContainer.innerHTML += `<a href="mailto:${email}" class="modal-social-link">${icons.email} Email</a>`;
+      }
+
+      modal?.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  const closeModal = () => {
+    modal?.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  closeBtn?.addEventListener('click', closeModal);
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+</script>
+
+<style>
+  .people-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 100px 40px 40px;
+  }
+
+  .section-header {
+    margin-bottom: 60px;
+    text-align: center;
+  }
+
+  h1 { font-size: clamp(3.5rem, 8vw, 6rem); line-height: 1; margin: 1.5rem 0; }
+  .subtitle { 
+    opacity: 0.8; 
+    max-width: 600px; 
+    margin: 0 auto; 
+    line-height: 1.6; 
+    font-size: 1.25rem; 
+    letter-spacing: 0.05em;
+  }
+
+  /* PI Section */
+  .pi-section {
+    margin-bottom: 100px;
+  }
+
+  .pi-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .pi-image-wrapper {
+    position: relative;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+  }
+
+  .pi-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .pi-grid:hover .pi-img {
+    transform: scale(1.05);
+  }
+
+  .pi-socials {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    display: flex;
+    gap: 15px;
+    z-index: 10;
+  }
+
+  .pi-socials a {
+    width: 44px;
+    height: 44px;
+    background: white;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+
+  .pi-socials a:hover {
+    background: black;
+    color: white;
+    transform: translateY(-5px);
+  }
+
+  .pi-info h2 {
+    font-size: 4rem;
+    margin: 1.5rem 0;
+  }
+
+  .role-badge {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 8px 16px;
+    border-radius: 100px;
+    display: inline-block;
+  }
+
+  .pi-bio p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    opacity: 0.8;
+  }
+
+  /* Members Grid */
+  .members-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 60px 30px;
+    margin-bottom: 160px;
+  }
+
+  .member-card {
+    grid-column: span 3;
+  }
+
+  .member-image {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: #111;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 25px;
+  }
+
+  .member-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .member-card:hover img {
+    transform: scale(1.1);
+  }
+
+  .member-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .member-card:hover .member-overlay {
+    opacity: 1;
+  }
+
+  .learn-more-btn {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 12px 24px;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .learn-more-btn:hover {
+    background: white;
+    color: black;
+  }
+
+  .member-info h3 {
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  .member-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .social-mini {
+    display: flex;
+    gap: 8px;
+    opacity: 0.4;
+  }
+
+  .social-mini a:hover {
+    opacity: 1;
+    color: var(--accent-blue);
+  }
+
+  .member-role {
+    font-size: 1rem;
+    opacity: 0.85;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* Join Card */
+  .join-the-team {
+    margin-bottom: 160px;
+  }
+
+  .join-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 80px;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .join-card h2 { font-size: 3rem; margin: 1.5rem 0; }
+  .join-card p { opacity: 0.7; font-size: 1.2rem; line-height: 1.7; margin-bottom: 3rem; }
+
+  .cta-button {
+    background: white;
+    color: black;
+    padding: 20px 40px;
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    display: inline-block;
+  }
+
+  .cta-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(255,255,255,0.1);
+    opacity: 0.95;
+  }
+
+  /* Modal */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.95);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .modal.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal-content {
+    background: #0a0a0a;
+    width: 90%;
+    max-width: 1000px;
+    max-height: 90vh;
+    position: relative;
+    padding: 60px;
+    border: 1px solid rgba(255,255,255,0.1);
+    overflow-y: auto;
+  }
+
+  .close-modal {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2.5rem;
+    cursor: pointer;
+    opacity: 0.5;
+    line-height: 1;
+  }
+
+  .close-modal:hover { opacity: 1; }
+
+  .modal-body-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 60px;
+  }
+
+  .modal-image-col img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+  }
+
+  .modal-info-col h2 {
+    font-size: 3rem;
+    margin: 1.5rem 0;
+    text-transform: none;
+  }
+
+  .modal-bio-text {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    opacity: 0.8;
+    margin-bottom: 3rem;
+  }
+
+  .modal-bio-text p { margin-bottom: 1.5rem; }
+
+  .modal-socials {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .modal-social-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+  }
+
+  .modal-social-link:hover {
+    background: white;
+    color: black;
+    border-color: white;
+  }
+
+  /* Alumni */
+  .alumni-header { margin-bottom: 60px; text-align: center; }
+  .alumni-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 60px;
+  }
+
+  .alumni-item {
+    font-size: 1.2rem;
+    opacity: 0.7;
+    font-family: var(--font-serif);
+    text-align: center;
+  }
+
+  @media (max-width: 1024px) {
+    .member-card { grid-column: span 4; }
+    .pi-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  @media (max-width: 768px) {
+    .people-container { padding: 120px 24px 60px; }
+    .member-card { grid-column: span 6; }
+    .pi-info h2 { font-size: 3rem; }
+    .modal-body-layout { grid-template-columns: 1fr; gap: 30px; }
+    .modal-content { padding: 40px 24px; }
+    .join-card { padding: 40px 24px; }
+  }
+
+  @media (max-width: 480px) {
+    .member-card { grid-column: span 12; }
+  }
+</style>

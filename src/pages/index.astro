@@ -1,0 +1,16 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import Hero from '../components/Hero.astro';
+import Mission from '../components/Mission.astro';
+---
+
+<MainLayout 
+  title="Home" 
+  description="MJ's Molecular Virology Lab at SP College Srinagar, led by Dr. Muzafar Jan. We research HIV-1 genetic diversity, glycan composition, and virus-host interactions."
+  showCredit={true}
+>
+  <Navigation />
+  <Hero />
+  <Mission />
+</MainLayout>

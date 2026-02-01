@@ -1,0 +1,108 @@
+---
+---
+<section class="hero cinematic-section">
+  <div class="hero-carousel">
+    <div class="carousel-slide" style="background-image: url('/images/homepage/carousel/hero-1.jpg');"></div>
+    <div class="carousel-slide" style="background-image: url('/images/homepage/carousel/hero-2.jpg');"></div>
+    <div class="carousel-slide" style="background-image: url('/images/homepage/carousel/hero-3.jpg');"></div>
+    <div class="carousel-slide" style="background-image: url('/images/homepage/carousel/hero-4.jpg');"></div>
+    <div class="carousel-overlay"></div>
+  </div>
+
+  <div class="hero-content">
+    <span class="fade-up" style="animation-delay: 0.1s;">Decoding Virus Pathogenesis • Dr. Muzafar Jan</span>
+    <h1 class="fade-up" style="animation-delay: 0.3s;">MOLECULAR <br/> VIROLOGY LAB</h1>
+    <p class="subtitle fade-up" style="animation-delay: 0.5s;">Investigating HIV-1 molecular biology and genetic evolution at SP College Srinagar.</p>
+  </div>
+</section>
+
+<style>
+  .cinematic-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-carousel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    animation: crossFade 32s infinite;
+    background-color: #050505; 
+  }
+
+  .carousel-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%);
+    z-index: 2;
+  }
+
+  .carousel-slide:nth-child(1) { animation-delay: 0s; }
+  .carousel-slide:nth-child(2) { animation-delay: 8s; }
+  .carousel-slide:nth-child(3) { animation-delay: 16s; }
+  .carousel-slide:nth-child(4) { animation-delay: 24s; }
+
+  @keyframes crossFade {
+    0% { opacity: 0; transform: scale(1.1); }
+    5% { opacity: 1; transform: scale(1.08); }
+    25% { opacity: 1; transform: scale(1.02); }
+    30% { opacity: 0; transform: scale(1); }
+    100% { opacity: 0; }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 10;
+  }
+
+  .hero-content span {
+    display: block;
+    font-size: 1.15rem;
+    letter-spacing: 0.6em;
+    margin-bottom: 2rem;
+    opacity: 1;
+    font-weight: 500;
+  }
+
+  h1 {
+    font-size: clamp(3.5rem, 12vw, 8rem);
+    line-height: 0.9;
+    margin-bottom: 2rem;
+    font-weight: 500;
+  }
+
+  .subtitle {
+    font-size: clamp(1.35rem, 2.5vw, 2rem);
+    opacity: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    font-family: var(--font-serif);
+    font-style: italic;
+  }
+
+  @media (max-width: 768px) {
+    .cinematic-section { height: 90vh; }
+  }
+</style>

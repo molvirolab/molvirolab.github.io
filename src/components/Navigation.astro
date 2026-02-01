@@ -1,0 +1,140 @@
+---
+---
+<nav class="nav-container">
+  <div class="nav-content">
+    <a href="/" class="logo">
+      <span class="logo-text">MJ's LAB</span>
+    </a>
+    
+    <div class="nav-links">
+      <a href="/">HOME</a>
+      <a href="/about">ABOUT</a>
+      <a href="/research">PUBLICATIONS</a>
+      <a href="/team">TEAM</a>
+      <a href="mailto:muzafarjan@gmail.com" class="nav-cta">CONTACT</a>
+    </div>
+
+    <button class="menu-toggle" aria-label="Toggle Menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </div>
+</nav>
+
+<script>
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+
+  menuToggle?.addEventListener('click', () => {
+    navLinks?.classList.toggle('active');
+    menuToggle.classList.toggle('open');
+  });
+</script>
+
+<style>
+  .nav-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 30px 40px;
+    transition: background 0.3s ease, padding 0.3s ease;
+  }
+
+  .nav-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    text-decoration: none;
+    color: white;
+    font-weight: 800;
+    letter-spacing: 0.3em;
+    font-size: 1.2rem;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    font-weight: 600;
+  }
+
+  .nav-links a:hover {
+    opacity: 1;
+    color: var(--accent-blue);
+  }
+
+  .nav-cta {
+    background: white;
+    color: black !important;
+    padding: 10px 20px;
+    opacity: 1 !important;
+    border-radius: 2px;
+  }
+
+  .nav-cta:hover {
+    transform: scale(1.05);
+    background: var(--accent-blue) !important;
+    color: white !important;
+  }
+
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .bar {
+    width: 25px;
+    height: 1px;
+    background: white;
+    transition: all 0.3s ease;
+  }
+
+  @media (max-width: 768px) {
+    .nav-container {
+        padding: 20px;
+    }
+    
+    .menu-toggle {
+      display: flex;
+    }
+
+    .nav-links {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      height: 100vh;
+      background: #050505;
+      flex-direction: column;
+      justify-content: center;
+      transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .nav-links.active {
+      right: 0;
+    }
+
+    .menu-toggle.open .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .menu-toggle.open .bar:nth-child(2) { transform: translateY(-7px) rotate(-45deg); }
+  }
+</style>
