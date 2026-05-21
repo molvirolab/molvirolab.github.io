@@ -107,15 +107,11 @@ import Navigation from '../components/Navigation.astro';
     let currentSlideIndex = 0;
 
     setInterval(() => {
-      // Deactivate current slide
+      if(slides.length === 0) return;
       slides[currentSlideIndex].classList.remove('active');
-      
-      // Move to next slide index wrapping around seamlessly
       currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-      
-      // Activate next slide
       slides[currentSlideIndex].classList.add('active');
-    }, 3000); // Ticks precisely every 3 seconds
+    }, 3000);
   });
 </script>
 
@@ -148,7 +144,6 @@ import Navigation from '../components/Navigation.astro';
     padding: 0 24px;
   }
 
-  /* Structural Automated Image Ticker Layout */
   .hero-stage {
     position: relative;
     padding: 100px 24px 80px;
@@ -168,7 +163,7 @@ import Navigation from '../components/Navigation.astro';
     background-size: cover;
     background-position: center;
     opacity: 0;
-    transition: opacity 1.2s ease-in-out; /* Super smooth image fluid crossfade */
+    transition: opacity 1.2s ease-in-out;
   }
 
   .microscopy-slider .slide.active {
@@ -182,7 +177,7 @@ import Navigation from '../components/Navigation.astro';
       to bottom,
       rgba(3, 7, 18, 0.65) 0%,
       rgba(3, 7, 18, 0.85) 60%,
-      var(--bg-dark) 100__
+      var(--bg-dark) 100%
     );
   }
 
@@ -289,7 +284,6 @@ import Navigation from '../components/Navigation.astro';
     background: rgba(255, 255, 255, 0.05);
   }
 
-  /* 3D Viewport styling */
   .viewer-section { padding: 60px 24px 80px; }
   .matrix-label { font-size: 0.75rem; letter-spacing: 0.2em; color: var(--neon-cyan); margin-bottom: 8px; font-weight: 600; }
   .matrix-heading { font-size: 2rem; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 32px; }
@@ -305,7 +299,6 @@ import Navigation from '../components/Navigation.astro';
   .dot.emerald { background: var(--neon-emerald); }
   .viewer-instruction { position: absolute; bottom: 24px; right: 24px; background: rgba(2, 6, 23, 0.8); padding: 8px 16px; border-radius: 4px; font-size: 0.8rem; color: #6b7280; border: 1px solid var(--border-glass); }
 
-  /* Info Metrics cards */
   .research-focus-section { padding: 40px 24px 100px; }
   .focus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
   .focus-card { background: var(--card-glass); border: 1px solid var(--border-glass); padding: 40px; border-radius: 8px; position: relative; transition: transform 0.3s ease, border-color 0.3s ease; }
@@ -314,7 +307,6 @@ import Navigation from '../components/Navigation.astro';
   .focus-card h3 { font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 12px; }
   .focus-card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin: 0; }
 
-  /* Mission and quote */
   .mission-bar { padding: 40px 24px 100px; }
   .glass-panel { background: rgba(15, 23, 42, 0.3); border: 1px solid var(--border-glass); border-radius: 16px; padding: 40px; display: flex; justify-content: space-between; align-items: center; gap: 40px; backdrop-filter: blur(10px); }
   .line-tag { font-size: 0.75rem; letter-spacing: 0.2em; color: var(--neon-cyan); margin-bottom: 8px; font-weight: 600; }
@@ -323,7 +315,6 @@ import Navigation from '../components/Navigation.astro';
   .panel-quote { border-left: 2px solid var(--neon-cyan); padding-left: 24px; min-width: 250px; }
   .quote { font-size: 1.3rem; font-style: italic; color: #fff; margin: 0; font-weight: 300; }
 
-  /* Footer */
   .scientific-footer { border-top: 1px solid var(--border-glass); padding: 30px 24px; display: flex; justify-content: space-between; color: #475569; font-size: 0.85rem; }
   .scientific-footer a { color: #64748b; text-decoration: none; }
 
