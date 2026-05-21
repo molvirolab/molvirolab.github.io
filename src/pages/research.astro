@@ -1,253 +1,291 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import Navigation from '../components/Navigation.astro';
-import { getCollection } from 'astro:content';
-
-const projects = await getCollection('research');
-const sortedProjects = projects.sort((a, b) => a.data.order - b.data.order);
-
-const publications = await getCollection('publications');
-const sortedPublications = publications.sort((a, b) => b.data.year - a.data.year);
 ---
 
 <MainLayout 
-  title="Publications & Research"
-  description="Research publications and scientific discoveries from the Molecular Virology Lab (MJ's Lab) specializing in HIV-1 molecular biology and genetic evolution."
+  title="Research | Molecular Virology Lab"
+  description="Explore our primary research projects, virological methodologies, and structural analytics at SP College."
 >
   <Navigation />
-  <div class="research-container">
-    <header class="section-header fade-up">
-      <span class="section-title">THE ENDEAVOR</span>
-      <h1>Publications & <br/> Research</h1>
-      <p class="subtitle">Pushing the boundaries of molecular virology through rigorous inquiry and investigative science at SP College Srinagar.</p>
+
+  <div class="main-content-wrapper">
+    <header class="research-header max-width-wrapper">
+      <div class="section-label">LABORATORY INVESTIGATIONS</div>
+      <h1>Research Focus</h1>
+      <p class="subtitle">Exploring the structural mechanics and genetic evolution of viral pathogens at the molecular frontier.</p>
     </header>
 
-    <section class="publications-section fade-up">
-      <header class="pub-header">
-        <span class="section-title">CHRONOLOGY</span>
-        <h2>Selected Publications</h2>
-      </header>
-      
-      <div class="pub-list">
-        {sortedPublications.map((pub, index) => (
-          <div class="pub-item fade-up" style={`animation-delay: ${index * 0.05}s`}>
-            <div class="pub-year">{pub.data.year}</div>
-            <div class="pub-body">
-              <h3>{pub.data.title}</h3>
-              <div class="pub-meta">
-                <span class="authors">{pub.data.authors}</span>
-                <span class="journal">{pub.data.journal}</span>
-              </div>
-              {pub.data.link && (
-                <a href={pub.data.link} target="_blank" class="pub-link">
-                  VIEW PUBLICATION <span>↗</span>
-                </a>
-              )}
-            </div>
+    <section class="projects-section max-width-wrapper">
+      <div class="projects-grid">
+        
+        <div class="project-card">
+          <div class="card-glow"></div>
+          <div class="project-tag">FOCUS AREA 01</div>
+          <h3>HIV-1 Glycan Topography</h3>
+          <p>Investigating the dense carbohydrate shield of the HIV-1 envelope glycoprotein gp120 to map neutralizing epitopes and structural vulnerabilities.</p>
+          <div class="tech-stack">
+            <span>Structural Modeling</span>
+            <span>Glycan Mapping</span>
           </div>
-        ))}
+        </div>
+
+        <div class="project-card">
+          <div class="card-glow and-emerald"></div>
+          <div class="project-tag tag-emerald">FOCUS AREA 02</div>
+          <h3>Genetic Variability & Evolution</h3>
+          <p>Tracking the mutational landscapes and evolutionary dynamics of viral strains to evaluate clinical resistance profiles and diagnostic accuracy.</p>
+          <div class="tech-stack">
+            <span>Phylogenetics</span>
+            <span>Sequence Analytics</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="card-glow and-blue"></div>
+          <div class="project-tag tag-blue">FOCUS AREA 03</div>
+          <h3>Host-Pathogen Dynamics</h3>
+          <p>Decoding the molecular cross-talk between viral surface entry receptors and host CD4 T-cell complexes to pinpoint key cellular entry inhibitors.</p>
+          <div class="tech-stack">
+            <span>Receptor Kinetics</span>
+            <span>Biochemical Assays</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="methodology-section border-top">
+      <div class="max-width-wrapper grid-2col">
+        <div>
+          <div class="section-label">METHODOLOGY</div>
+          <h2>Biochemical Frameworks</h2>
+          <p class="desc-text">Our lab coordinates advanced wet-lab molecular techniques alongside computational structural biology to analyze complex pathogen matrices from multiple dimensions.</p>
+        </div>
+        <div class="methods-list-box">
+          <div class="method-item">
+            <strong>01 / Molecular Assays</strong>
+            <p>Polymerase Chain Reaction (PCR) workflows, expression arrays, and target amplification sequencing profiles.</p>
+          </div>
+          <div class="method-item">
+            <strong>02 / In-Silico Modeling</strong>
+            <p>Interactive 3D structural rendering, vector analytics, and predictive biomolecular binding calculations.</p>
+          </div>
+        </div>
       </div>
     </section>
   </div>
 </MainLayout>
 
-<script>
-  const modal = document.getElementById('research-modal');
-  const closeBtn = modal?.querySelector('.close-modal');
-  const triggers = document.querySelectorAll('.research-trigger');
-
-  triggers.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const { title, description, color } = btn.dataset;
-      
-      const modalTitle = document.getElementById('modal-title');
-      const modalDesc = document.getElementById('modal-description');
-      
-      if (modalTitle) {
-        modalTitle.textContent = title || '';
-        modalTitle.style.color = color || '';
-      }
-      if (modalDesc) {
-        // Simple markdown-to-html (paragraph splitting)
-        modalDesc.innerHTML = (description || '').split('\n\n').map(p => `<p>${p}</p>`).join('');
-      }
-      
-      modal?.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    });
-  });
-
-  const closeModal = () => {
-    modal?.classList.remove('active');
-    document.body.style.overflow = '';
-  };
-
-  closeBtn?.addEventListener('click', closeModal);
-  modal?.addEventListener('click', (e) => {
-    if (e.target === modal) closeModal();
-  });
-</script>
-
 <style>
-  .research-container {
-    max-width: 1400px;
+  :root {
+    --bg-dark: #030712;
+    --card-glass: rgba(15, 23, 42, 0.4);
+    --border-glass: rgba(255, 255, 255, 0.06);
+    --neon-blue: #38bdf8;
+    --neon-emerald: #34d399;
+    --text-muted: #9ca3af;
+  }
+
+  .main-content-wrapper {
+    padding-top: 100px;
+    background-color: var(--bg-dark);
+    color: #f3f4f6;
+    font-family: system-ui, sans-serif;
+    min-height: 100vh;
+  }
+
+  .max-width-wrapper {
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 100px 40px 40px;
+    padding: 0 24px;
   }
 
-  .section-header {
-    margin-bottom: 40px;
-    max-width: 800px;
+  .border-top {
+    border-top: 1px solid var(--border-glass);
   }
 
-  h1 { font-size: clamp(3.5rem, 8vw, 6rem); line-height: 1; margin: 1.5rem 0; }
-  .subtitle { 
-    font-size: 1.25rem; 
-    opacity: 0.8; 
-    line-height: 1.6; 
-    letter-spacing: 0.05em;
+  /* Header Section */
+  .research-header {
+    text-align: center;
+    padding: 60px 24px 40px;
   }
 
-  /* Themes Grid */
-  .themes-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 40px;
-    margin-bottom: 60px;
-  }
-
-  .theme-card {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 60px 40px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-    display: flex;
-    flex-direction: column;
-  }
-
-  .card-accent {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background: var(--theme-color);
-    opacity: 0.3;
-    transition: all 0.6s ease;
-  }
-
-  .theme-card:hover {
-    background: rgba(255, 255, 255, 0.04);
-    transform: translateY(-10px);
-    border-color: rgba(255, 255, 255, 0.1);
-  }
-
-  .theme-card:hover .card-accent {
-    width: 100%;
-    opacity: 0.05;
-  }
-
-  .theme-number {
-    font-family: var(--font-serif);
-    font-size: 1.1rem;
-    color: var(--theme-color);
-    margin-bottom: 40px;
-    display: block;
-    letter-spacing: 0.2em;
-  }
-
-  .theme-card h3 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    text-transform: none;
-    letter-spacing: 0;
-    line-height: 1.2;
-  }
-
-  .theme-card p {
-    font-size: 1rem;
-    line-height: 1.7;
-    opacity: 0.6;
-    margin-bottom: 40px;
-    flex-grow: 1;
-  }
-
-  .theme-footer {
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 25px;
-  }
-
-  .learn-more-btn {
-    background: transparent;
-    border: none;
-    color: white;
+  .section-label {
     font-size: 0.75rem;
-    letter-spacing: 0.3em;
-    padding: 0;
-    cursor: pointer;
-    font-weight: 600;
-    transition: letter-spacing 0.3s ease;
+    letter-spacing: 0.2em;
+    color: var(--neon-blue);
     text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 12px;
   }
 
-  .learn-more-btn:hover {
-    letter-spacing: 0.4em;
-    color: var(--theme-color);
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    color: #fff;
   }
 
-  /* Publications */
-  .pub-header { margin-bottom: 80px; text-align: center; }
-  .pub-list { max-width: 1000px; margin: 0 auto; }
+  .subtitle {
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    color: var(--text-muted);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+    font-weight: 300;
+  }
 
-  .pub-item {
+  /* Projects Grid */
+  .projects-section {
+    padding: 40px 24px 100px;
+  }
+
+  .projects-grid {
     display: grid;
-    grid-template-columns: 100px 1fr;
-    gap: 40px;
-    padding: 40px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
   }
 
-  .pub-year {
-    font-family: var(--font-serif);
-    font-size: 1.6rem;
-    opacity: 0.4;
-  }
-
-  .pub-body h3 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-    text-transform: none;
-    letter-spacing: 0;
-    line-height: 1.4;
-  }
-
-  .pub-meta {
-    font-size: 1.1rem;
-    opacity: 0.8;
-    margin-bottom: 20px;
+  .project-card {
+    position: relative;
+    background: var(--card-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: 16px;
+    padding: 40px;
+    backdrop-filter: blur(12px);
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   }
 
-  .authors { font-family: var(--font-serif); font-style: italic; }
+  .project-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
 
-  .pub-link {
+  /* Background Blur Orbs inside Cards */
+  .card-glow {
+    position: absolute;
+    top: -20%;
+    right: -20%;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(0,0,0,0) 70%);
+    pointer-events: none;
+  }
+
+  .card-glow.and-emerald { background: radial-gradient(circle, rgba(52, 211, 153, 0.12) 0%, rgba(0,0,0,0) 70%); }
+  .card-glow.and-blue { background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, rgba(0,0,0,0) 70%); }
+
+  .project-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--neon-blue);
+    background: rgba(56, 189, 248, 0.06);
+    border: 1px solid rgba(56, 189, 248, 0.15);
+    padding: 4px 10px;
+    border-radius: 4px;
+    align-self: flex-start;
+    margin-bottom: 24px;
+  }
+
+  .project-tag.tag-emerald { color: var(--neon-emerald); background: rgba(52, 211, 153, 0.06); border-color: rgba(52, 211, 153, 0.15); }
+  .project-tag.tag-blue { color: var(--neon-blue); background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.15); }
+
+  .project-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #fff;
+    letter-spacing: -0.01em;
+  }
+
+  .project-card p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: auto;
+  }
+
+  .tech-stack span {
     font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 4px 10px;
+    border-radius: 100px;
+    color: #9ca3af;
   }
 
-  .pub-link span { transition: transform 0.3s ease; }
-  .pub-link:hover span { transform: translate(3px, -3px); }
+  /* Methodology Layout */
+  .methodology-section {
+    padding: 100px 24px;
+    background: linear-gradient(to bottom, #030712, #050b18);
+  }
 
-  @media (max-width: 768px) {
-    .research-container { padding: 120px 24px 60px; }
-    .pub-item { grid-template-columns: 1fr; gap: 10px; }
+  .grid-2col {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 60px;
+    align-items: flex-start;
+  }
+
+  .grid-2col h2 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .desc-text {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .methods-list-box {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .method-item {
+    background: rgba(255, 255, 255, 0.01);
+    border-left: 2px solid var(--border-glass);
+    padding: 8px 0 8px 24px;
+    transition: border-color 0.3s ease;
+  }
+
+  .method-item:hover {
+    border-left-color: var(--neon-blue);
+  }
+
+  .method-item strong {
+    display: block;
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .method-item p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 968px) {
+    .projects-grid { grid-template-columns: 1fr; gap: 20px; }
+    .grid-2col { grid-template-columns: 1fr; gap: 40px; }
   }
 </style>
