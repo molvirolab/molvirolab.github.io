@@ -1,0 +1,250 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Navigation from '../components/Navigation.astro';
+---
+
+<MainLayout 
+  title="Publications | Molecular Virology Lab"
+  description="Explore peer-reviewed literature, journal articles, and crystal structure coordinates published by MJ's Lab."
+>
+  <Navigation />
+
+  <div class="main-content-wrapper">
+    <header class="pub-header max-width-wrapper">
+      <div class="section-label">COMPENDIUM // PEER-REVIEWED LITERATURE</div>
+      <h1>Publications</h1>
+      <p class="subtitle">Chronological record of research contributions to HIV-1 structural biology and pathogenesis dynamics.</p>
+    </header>
+
+    <section class="publications-section max-width-wrapper">
+      
+      <div class="featured-banner">
+        <span class="feat-tag">LATEST DISCOVERY</span>
+        <h2>Structural Analysis of Envelope Glycoprotein Configurations</h2>
+        <p class="authors">Jan M., Bhat U. I., Nazir D., et al.</p>
+        <p class="abstract"><strong>Abstract Summary:</strong> Investigating point mutations within regional isolates to track evolution patterns across the HIV-1 glycan topography shield, exposing potential neutralizing epitope vulnerabilities.</p>
+        <div class="pub-links">
+          <a href="#" class="link-btn text-cyan">[ DOI LINK ]</a>
+          <a href="#" class="link-btn">[ NCBI GENBANK ]</a>
+          <a href="#structural-matrix" class="link-btn text-emerald">[ 3D STRUCT COORDS ]</a>
+        </div>
+      </div>
+
+      <div class="pub-list">
+        <div class="section-label-mid">ARCHIVAL RECORDS</div>
+
+        <div class="pub-entry">
+          <div class="entry-meta">
+            <span class="year">2025</span>
+            <span class="journal">Journal of Molecular Virology</span>
+          </div>
+          <div class="entry-content">
+            <h3>In-Silico Docking Kinetics of Host-Cell Entry Complexes</h3>
+            <p class="authors">Jan M., et al.</p>
+            <div class="entry-actions">
+              <a href="#">Abstract</a> • <a href="#">Full Text PDF</a> • <a href="#">PDB Coordinate Map</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="pub-entry">
+          <div class="entry-meta">
+            <span class="year">2024</span>
+            <span class="journal">Biochemistry Research Communications</span>
+          </div>
+          <div class="entry-content">
+            <h3>Glycan Shield Mutations and Core Receptor Trajectories</h3>
+            <p class="authors">Jan M., Bhat U. I.</p>
+            <div class="entry-actions">
+              <a href="#">Abstract</a> • <a href="#">Full Text PDF</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</MainLayout>
+
+<style>
+  :root {
+    --bg-dark: #030712;
+    --card-glass: rgba(15, 23, 42, 0.4);
+    --border-glass: rgba(255, 255, 255, 0.06);
+    --neon-blue: #38bdf8;
+    --neon-emerald: #34d399;
+    --text-muted: #9ca3af;
+  }
+
+  .main-content-wrapper {
+    padding-top: 100px;
+    background-color: var(--bg-dark);
+    color: #f3f4f6;
+    font-family: system-ui, sans-serif;
+    min-height: 100vh;
+    background-image: 
+      linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  .max-width-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Header Section */
+  .pub-header {
+    text-align: center;
+    padding: 60px 24px 40px;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--neon-blue);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    color: #fff;
+  }
+
+  .subtitle {
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    color: var(--text-muted);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* Featured Item Banner Layout */
+  .publications-section {
+    padding: 40px 24px 120px;
+  }
+
+  .featured-banner {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(3, 7, 18, 0.8) 100%);
+    border: 1px solid rgba(56, 189, 248, 0.15);
+    border-radius: 12px;
+    padding: 40px;
+    margin-bottom: 60px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  }
+
+  .feat-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--neon-blue);
+    background: rgba(56, 189, 248, 0.06);
+    padding: 4px 10px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+
+  .featured-banner h2 {
+    font-size: 1.75rem;
+    color: #fff;
+    margin: 0 0 8px 0;
+    font-weight: 800;
+  }
+
+  .authors {
+    font-size: 1rem;
+    color: #e5e7eb;
+    margin: 0 0 20px 0;
+  }
+
+  .abstract {
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-size: 1.05rem;
+    margin-bottom: 32px;
+  }
+
+  .pub-links {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .link-btn {
+    font-size: 0.85rem;
+    font-family: monospace;
+    text-decoration: none;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+  }
+  .link-btn:hover { color: #fff; }
+  .link-btn.text-cyan { color: var(--neon-blue); }
+  .link-btn.text-emerald { color: var(--neon-emerald); }
+
+  /* Archive List Records Layout */
+  .section-label-mid {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: #64748b;
+    margin-bottom: 24px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-glass);
+    padding-bottom: 12px;
+  }
+
+  .pub-entry {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 40px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border-glass);
+  }
+
+  .entry-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .year {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .journal {
+    font-size: 0.85rem;
+    color: #64748b;
+  }
+
+  .pub-entry h3 {
+    font-size: 1.3rem;
+    color: #fff;
+    margin: 0 0 6px 0;
+    font-weight: 700;
+  }
+
+  .entry-actions {
+    margin-top: 16px;
+    font-size: 0.9rem;
+    color: #64748b;
+  }
+
+  .entry-actions a {
+    color: var(--neon-blue);
+    text-decoration: none;
+  }
+  .entry-actions a:hover { text-decoration: underline; }
+
+  @media (max-width: 768px) {
+    .pub-entry { grid-template-columns: 1fr; gap: 12px; }
+  }
+</style>
