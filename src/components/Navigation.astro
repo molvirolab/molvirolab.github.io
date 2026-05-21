@@ -1,140 +1,105 @@
 ---
+// Premium Cinematic Navigation Component
 ---
-<nav class="nav-container">
-  <div class="nav-content">
-    <a href="/" class="logo">
-      <span class="logo-text">MJ's LAB</span>
-    </a>
-    
-    <div class="nav-links">
-      <a href="/">HOME</a>
-      <a href="/about">ABOUT</a>
-      <a href="/research">PUBLICATIONS</a>
-      <a href="/team">TEAM</a>
-      <a href="mailto:muzafarjan@gmail.com" class="nav-cta">CONTACT</a>
-    </div>
 
-    <button class="menu-toggle" aria-label="Toggle Menu">
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </button>
+<nav class="science-nav">
+  <div class="nav-container">
+    <a href="/" class="nav-brand">
+      MJ'S <span class="accent">LAB</span>
+    </a>
+
+    <div class="nav-links">
+      <a href="/" class="nav-item">Home</a>
+      <a href="/about" class="nav-item">About</a>
+      <a href="/research" class="nav-item">Research</a>
+      <a href="/publications" class="nav-item">Publications</a>
+      <a href="/team" class="nav-item">Team</a>
+      <a href="mailto:muzafarjan@gmail.com" class="nav-btn">CONTACT</a>
+    </div>
   </div>
 </nav>
 
-<script>
-  const menuToggle = document.querySelector('.menu-toggle');
-  const navLinks = document.querySelector('.nav-links');
-
-  menuToggle?.addEventListener('click', () => {
-    navLinks?.classList.toggle('active');
-    menuToggle.classList.toggle('open');
-  });
-</script>
-
 <style>
-  .nav-container {
+  .science-nav {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    padding: 30px 40px;
-    transition: background 0.3s ease, padding 0.3s ease;
+    /* High-end frosted glass paneling effect */
+    background: rgba(3, 7, 18, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  .nav-content {
-    max-width: 1400px;
+  .nav-container {
+    max-width: 1300px;
     margin: 0 auto;
+    padding: 18px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  .logo {
-    text-decoration: none;
-    color: white;
+  .nav-brand {
+    font-size: 1.15rem;
     font-weight: 800;
-    letter-spacing: 0.3em;
-    font-size: 1.2rem;
+    letter-spacing: 0.15em;
+    color: #fff;
+    text-decoration: none;
+    font-family: system-ui, sans-serif;
+  }
+
+  .nav-brand .accent {
+    color: #22d3ee; /* Matching neon cyan highlight */
+    text-shadow: 0 0 10px rgba(34, 211, 238, 0.3);
   }
 
   .nav-links {
     display: flex;
-    gap: 40px;
     align-items: center;
+    gap: 32px;
   }
 
-  .nav-links a {
-    text-decoration: none;
-    color: white;
+  .nav-item {
     font-size: 0.85rem;
-    letter-spacing: 0.25em;
-    opacity: 0.7;
-    transition: all 0.3s ease;
-    font-weight: 600;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #94a3b8;
+    text-decoration: none;
+    transition: color 0.25s ease, text-shadow 0.25s ease;
   }
 
-  .nav-links a:hover {
-    opacity: 1;
-    color: var(--accent-blue);
+  .nav-item:hover {
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
   }
 
-  .nav-cta {
-    background: white;
-    color: black !important;
-    padding: 10px 20px;
-    opacity: 1 !important;
-    border-radius: 2px;
+  /* Compact Command Action Button */
+  .nav-btn {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #030712;
+    background: #fff;
+    padding: 8px 18px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s ease;
   }
 
-  .nav-cta:hover {
-    transform: scale(1.05);
-    background: var(--accent-blue) !important;
-    color: white !important;
+  .nav-btn:hover {
+    background: #22d3ee;
+    box-shadow: 0 0 15px rgba(34, 211, 238, 0.4);
+    transform: translateY(-1px);
   }
 
-  .menu-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 6px;
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-
-  .bar {
-    width: 25px;
-    height: 1px;
-    background: white;
-    transition: all 0.3s ease;
-  }
-
+  /* Basic Mobile Constraint Check */
   @media (max-width: 768px) {
-    .nav-container {
-        padding: 20px;
-    }
-    
-    .menu-toggle {
-      display: flex;
-    }
-
-    .nav-links {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 100%;
-      height: 100vh;
-      background: #050505;
-      flex-direction: column;
-      justify-content: center;
-      transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-    }
-
-    .nav-links.active {
-      right: 0;
-    }
-
-    .menu-toggle.open .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .menu-toggle.open .bar:nth-child(2) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-links { gap: 16px; }
+    .nav-item { display: none; } /* Kept simple for raw code updates; hidden items keep layout tight */
+    .nav-item:nth-child(1), .nav-item:nth-child(5) { display: inline-block; } 
   }
 </style>
