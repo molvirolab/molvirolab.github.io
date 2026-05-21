@@ -12,12 +12,19 @@ import Navigation from '../components/Navigation.astro';
   <div class="viral-workspace">
     
     <header class="hero-stage">
-      <div class="glowing-virus-cloud"></div>
+      
+      <div class="microscopy-slider">
+        <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=1600&auto=format&fit=crop');"></div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1532187863486-abf9d39d6618?q=80&w=1600&auto=format&fit=crop');"></div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=1600&auto=format&fit=crop');"></div>
+        <div class="dark-lens-overlay"></div>
+      </div>
+
       <div class="content-container">
         <div class="science-badge"><span class="scanner-dot"></span> LIVE VECTOR ANALYSIS CORE</div>
         <h1 class="main-title">MOLECULAR <span class="accent-glow">VIROLOGY</span> LAB</h1>
         <p class="subtitle">Structural Dynamics & Pathogenesis Terminal</p>
-          <p class="desc">Investigating HIV-1 molecular biology trajectories and genetic evolution at SP College Srinagar.</p>
+        <p class="desc">Investigating HIV-1 molecular biology trajectories and genetic evolution at SP College Srinagar.</p>
         <div class="actions">
           <a href="#structural-matrix" class="btn-primary">INITIALIZE 3D MAP</a>
           <a href="mailto:muzafarjan@gmail.com" class="btn-secondary">CONTACT PROTOCOL</a>
@@ -94,6 +101,24 @@ import Navigation from '../components/Navigation.astro';
 
 <script is:inline src="https://3dmol.org/build/3Dmol-min.js"></script>
 
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const slides = document.querySelectorAll('.microscopy-slider .slide');
+    let currentSlideIndex = 0;
+
+    setInterval(() => {
+      // Deactivate current slide
+      slides[currentSlideIndex].classList.remove('active');
+      
+      // Move to next slide index wrapping around seamlessly
+      currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+      
+      // Activate next slide
+      slides[currentSlideIndex].classList.add('active');
+    }, 3000); // Ticks precisely every 3 seconds
+  });
+</script>
+
 <style>
   :root {
     --bg-dark: #030712;
@@ -105,19 +130,16 @@ import Navigation from '../components/Navigation.astro';
     --text-muted: #94a3b8;
   }
 
-  /* Pushes content down to fix the fixed header overlapping text issue */
   .viral-workspace {
     padding-top: 100px;
     background-color: var(--bg-dark);
     color: #e2e8f0;
     font-family: system-ui, sans-serif;
     min-height: 100vh;
-    /* Scientific Biological Grid Pattern Overlay */
     background-image: 
-      radial-gradient(circle at 15% 15%, rgba(6, 182, 212, 0.05) 0%, rgba(3, 7, 18, 0) 50%),
       linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
-    background-size: 100% 100%, 50px 50px, 50px 50px;
+    background-size: 50px 50px;
   }
 
   .max-width {
@@ -126,29 +148,55 @@ import Navigation from '../components/Navigation.astro';
     padding: 0 24px;
   }
 
-  /* Header Section with an abstract glowing viral background shape */
+  /* Structural Automated Image Ticker Layout */
   .hero-stage {
     position: relative;
-    padding: 80px 24px 60px;
+    padding: 100px 24px 80px;
     text-align: center;
     overflow: hidden;
   }
 
-  .glowing-virus-cloud {
+  .microscopy-slider {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 50% 30%, rgba(3, 105, 161, 0.1) 0%, rgba(3, 7, 18, 0) 60%);
-    pointer-events: none;
+    z-index: 0;
+  }
+
+  .microscopy-slider .slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out; /* Super smooth image fluid crossfade */
+  }
+
+  .microscopy-slider .slide.active {
+    opacity: 1;
+  }
+
+  .dark-lens-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(3, 7, 18, 0.65) 0%,
+      rgba(3, 7, 18, 0.85) 60%,
+      var(--bg-dark) 100__
+    );
+  }
+
+  .content-container {
+    position: relative;
+    z-index: 10;
   }
 
   .science-badge {
-    position: relative;
-    z-index: 10;
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(3, 105, 161, 0.1);
-    border: 1px solid rgba(14, 116, 144, 0.2);
+    background: rgba(3, 105, 161, 0.2);
+    border: 1px solid rgba(56, 189, 248, 0.3);
     color: var(--neon-cyan);
     padding: 6px 14px;
     border-radius: 4px;
@@ -166,14 +214,13 @@ import Navigation from '../components/Navigation.astro';
   }
 
   .main-title {
-    position: relative;
-    z-index: 10;
     font-size: clamp(2.5rem, 6vw, 4.5rem);
     font-weight: 900;
     letter-spacing: -0.02em;
     line-height: 1.1;
     margin: 20px 0 16px;
     color: var(--gold-premium);
+    text-shadow: 0 4px 20px rgba(0,0,0,0.6);
   }
 
   .accent-glow {
@@ -183,28 +230,24 @@ import Navigation from '../components/Navigation.astro';
   }
 
   .subtitle {
-    position: relative;
-    z-index: 10;
     font-size: clamp(1.25rem, 2.5vw, 1.75rem);
     color: #e5e7eb;
-    font-weight: 300;
+    font-weight: 400;
     letter-spacing: 0.05em;
     margin-bottom: 12px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
   }
 
   .desc {
-    position: relative;
-    z-index: 10;
     max-width: 650px;
     margin: 0 auto 40px;
-    color: var(--text-muted);
+    color: #cbd5e1;
     font-size: 1.1rem;
     line-height: 1.6;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
   }
 
   .actions {
-    position: relative;
-    z-index: 10;
     display: flex;
     gap: 16px;
     justify-content: center;
@@ -229,8 +272,9 @@ import Navigation from '../components/Navigation.astro';
   }
 
   .btn-secondary {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid var(--border-glass);
+    background: rgba(3, 7, 18, 0.4);
+    border: 1px solid rgba(255,255,255,0.2);
+    backdrop-filter: blur(4px);
     color: white;
     padding: 14px 28px;
     border-radius: 4px;
@@ -245,190 +289,42 @@ import Navigation from '../components/Navigation.astro';
     background: rgba(255, 255, 255, 0.05);
   }
 
-  /* 3D Lab Matrix Frame */
-  .viewer-section {
-    padding: 60px 24px 80px;
-  }
+  /* 3D Viewport styling */
+  .viewer-section { padding: 60px 24px 80px; }
+  .matrix-label { font-size: 0.75rem; letter-spacing: 0.2em; color: var(--neon-cyan); margin-bottom: 8px; font-weight: 600; }
+  .matrix-heading { font-size: 2rem; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 32px; }
+  .glass-viewer-frame { position: relative; background: #030712; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+  .canvas-container { width: 100%; height: 550px; position: relative; }
 
-  .matrix-label {
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    color: var(--neon-cyan);
-    margin-bottom: 8px;
-    font-weight: 600;
-  }
-
-  .matrix-heading {
-    font-size: 2rem;
-    font-weight: 800;
-    letter-spacing: -0.01em;
-    margin-bottom: 32px;
-  }
-
-  .glass-viewer-frame {
-    position: relative;
-    background: #030712;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  }
-
-  .canvas-container {
-    width: 100%;
-    height: 550px;
-    position: relative;
-  }
-
-  /* Live Scientific Data Legend Overlay */
-  .scientific-legend {
-    position: absolute;
-    top: 24px;
-    left: 24px;
-    background: rgba(2, 6, 23, 0.8);
-    border: 1px solid var(--border-glass);
-    padding: 20px;
-    border-radius: 6px;
-    backdrop-filter: blur(8px);
-    z-index: 10;
-  }
-
-  .scientific-legend h4 {
-    font-size: 0.8rem;
-    letter-spacing: 0.05em;
-    margin: 0 0 12px 0;
-    color: #fff;
-  }
-
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    margin-bottom: 8px;
-  }
-
-  .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-  }
+  .scientific-legend { position: absolute; top: 24px; left: 24px; background: rgba(2, 6, 23, 0.8); border: 1px solid var(--border-glass); padding: 20px; border-radius: 6px; backdrop-filter: blur(8px); z-index: 10; }
+  .scientific-legend h4 { font-size: 0.8rem; letter-spacing: 0.05em; margin: 0 0 12px 0; color: #fff; }
+  .legend-item { display: flex; align-items: center; gap: 10px; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; }
   .dot.spectrum-fade { background: linear-gradient(to right, red, orange, yellow, green, blue); }
   .dot.cyan { background: var(--neon-cyan); }
   .dot.emerald { background: var(--neon-emerald); }
+  .viewer-instruction { position: absolute; bottom: 24px; right: 24px; background: rgba(2, 6, 23, 0.8); padding: 8px 16px; border-radius: 4px; font-size: 0.8rem; color: #6b7280; border: 1px solid var(--border-glass); }
 
-  .viewer-instruction {
-    position: absolute;
-    bottom: 24px;
-    right: 24px;
-    background: rgba(2, 6, 23, 0.8);
-    padding: 8px 16px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    color: #6b7280;
-    border: 1px solid var(--border-glass);
-  }
+  /* Info Metrics cards */
+  .research-focus-section { padding: 40px 24px 100px; }
+  .focus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .focus-card { background: var(--card-glass); border: 1px solid var(--border-glass); padding: 40px; border-radius: 8px; position: relative; transition: transform 0.3s ease, border-color 0.3s ease; }
+  .focus-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.12); }
+  .card-count { font-size: 0.8rem; color: var(--neon-cyan); font-family: monospace; display: block; margin-bottom: 16px; }
+  .focus-card h3 { font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 12px; }
+  .focus-card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin: 0; }
 
-  /* Research Matrix Info Cards */
-  .research-focus-section {
-    padding: 40px 24px 100px;
-  }
-
-  .focus-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-
-  .focus-card {
-    background: var(--card-glass);
-    border: 1px solid var(--border-glass);
-    padding: 40px;
-    border-radius: 8px;
-    position: relative;
-    transition: transform 0.3s ease, border-color 0.3s ease;
-  }
-
-  .focus-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(255,255,255,0.12);
-  }
-
-  .card-count {
-    font-size: 0.8rem;
-    color: var(--neon-cyan);
-    font-family: monospace;
-    display: block;
-    margin-bottom: 16px;
-  }
-
-  .focus-card h3 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 12px;
-  }
-
-  .focus-card p {
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  /* Bottom Mission Panel info box layout */
-  .mission-bar {
-    padding: 40px 24px 100px;
-  }
-
-  .glass-panel {
-    background: rgba(15, 23, 42, 0.3);
-    border: 1px solid var(--border-glass);
-    border-radius: 16px;
-    padding: 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 40px;
-    backdrop-filter: blur(10px);
-  }
-
-  .line-tag {
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    color: var(--neon-cyan);
-    margin-bottom: 8px;
-    font-weight: 600;
-  }
-
+  /* Mission and quote */
+  .mission-bar { padding: 40px 24px 100px; }
+  .glass-panel { background: rgba(15, 23, 42, 0.3); border: 1px solid var(--border-glass); border-radius: 16px; padding: 40px; display: flex; justify-content: space-between; align-items: center; gap: 40px; backdrop-filter: blur(10px); }
+  .line-tag { font-size: 0.75rem; letter-spacing: 0.2em; color: var(--neon-cyan); margin-bottom: 8px; font-weight: 600; }
   .panel-text h3 { font-size: 1.75rem; margin: 8px 0 12px; font-weight: 800; color: #fff; }
   .panel-text p { color: var(--text-muted); margin: 0; line-height: 1.7; max-width: 700px; }
+  .panel-quote { border-left: 2px solid var(--neon-cyan); padding-left: 24px; min-width: 250px; }
+  .quote { font-size: 1.3rem; font-style: italic; color: #fff; margin: 0; font-weight: 300; }
 
-  .panel-quote {
-    border-left: 2px solid var(--neon-cyan);
-    padding-left: 24px;
-    min-width: 250px;
-  }
-
-  .quote {
-    font-size: 1.3rem;
-    font-style: italic;
-    color: #fff;
-    margin: 0;
-    font-weight: 300;
-  }
-
-  /* Footer Style */
-  .scientific-footer {
-    border-top: 1px solid var(--border-glass);
-    padding: 30px 24px;
-    display: flex;
-    justify-content: space-between;
-    color: #475569;
-    font-size: 0.85rem;
-  }
-
+  /* Footer */
+  .scientific-footer { border-top: 1px solid var(--border-glass); padding: 30px 24px; display: flex; justify-content: space-between; color: #475569; font-size: 0.85rem; }
   .scientific-footer a { color: #64748b; text-decoration: none; }
 
   @media (max-width: 968px) {
