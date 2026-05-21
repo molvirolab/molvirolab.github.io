@@ -1,104 +1,66 @@
 ---
-import '../styles/global.css';
-
-interface Props {
-  title: string;
-  description?: string;
-  showCredit?: boolean;
-}
-
-const { 
-  title, 
-  description = "Official website of Dr. Muzafar Jan's Molecular Virology Lab at SP College Srinagar. Researching HIV-1 molecular biology and pathogenesis.", 
-  showCredit = false 
-} = Astro.props;
-
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+// Premium Global Site Wrapper Core Layout
+const { title, description } = Astro.props;
 ---
 
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Global Metadata -->
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="google-site-verification" content="LVkXO26moDbMdQYta-ECAqIKGWpnktuf69Fg3OuOcgo" />
+    <title>{title || "Molecular Virology Lab"}</title>
+    <meta name="description" content={description || "Decoding Virus Pathogenesis — Interactive Structural Biology Ecosystem."} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-
-    <!-- Canonical URL -->
-    <link rel="canonical" href={canonicalURL} />
-
-    <!-- Primary Meta Tags -->
-    <title>{title} | Molecular Virology Lab (MJ's Lab)</title>
-    <meta name="title" content={`${title} | Molecular Virology Lab (MJ's Lab)`} />
-    <meta name="description" content={description} />
-    <meta name="keywords" content="Muzafar Jan, MJ Lab, Molecular Virology, HIV-1 Research, SP College Srinagar, Biochemistry, Molecular Biology, Bhat Mohsin, Virology Research India" />
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.url} />
-    <meta property="og:title" content={`${title} | Molecular Virology Lab`} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL('/images/about/group-photo.jpg', Astro.url)} />
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={Astro.url} />
-    <meta property="twitter:title" content={`${title} | Molecular Virology Lab`} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={new URL('/images/about/group-photo.jpg', Astro.url)} />
-
-    <!-- Fonts -->
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <!-- Structured Data (JSON-LD) -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "EducationalOrganization",
-        "name": "Molecular Virology Lab (MJ's Lab)",
-        "alternateName": "MJ Lab",
-        "parentOrganization": {
-          "@type": "CollegeOrUniversity",
-          "name": "Sri Pratap (SP) College Srinagar"
-        },
-        "description": "A molecular biology research laboratory focused on HIV-1 pathogenesis and genetic evolution.",
-        "url": "https://molvirolab.github.io",
-        "employee": [
-          {
-            "@type": "Person",
-            "name": "Dr. Muzafar Jan",
-            "jobTitle": "Principal Investigator"
-          }
-        ],
-        "location": {
-          "@type": "Place",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Srinagar",
-            "addressRegion": "Jammu & Kashmir",
-            "addressCountry": "India"
-          }
-        }
-      }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   </head>
   <body>
-    <main>
-      <slot />
-    </main>
-
-    <footer>
-      <div class="footer-content" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-        <p>&copy; {new Date().getFullYear()} Molecular Virology Lab. Department of Biochemistry, Sri Pratap (SP) College Srinagar.</p>
-        {showCredit && (
-          <p class="credit" style="font-size: 0.8rem; opacity: 0.5;">
-            Created by <a href="https://bhatmohsin.netlify.app" target="_blank" style="text-decoration: underline; opacity: 1;">Bhat Mohsin</a>
-          </p>
-        )}
-      </div>
-    </footer>
+    <slot />
   </body>
 </html>
+
+<style is:global>
+  /* Global CSS Resets to lock down the premium dark terminal aesthetic */
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: #030712; /* Locks dark background immediately during loads */
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #030712;
+    color: #e2e8f0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Monospaced utility accents */
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace !important;
+  }
+
+  /* Smooth custom scrollbar map to match the theme lines */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #030712;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(34, 211, 238, 0.3);
+  }
+</style>
