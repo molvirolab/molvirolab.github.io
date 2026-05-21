@@ -9,65 +9,68 @@ import Navigation from '../components/Navigation.astro';
 >
   <Navigation />
 
-  <div class="main-content-wrapper">
+  <div class="science-matrix-wrapper">
     
     <section class="hero-stage">
-      <div class="glow-bg-orb"></div>
+      <div class="hiv-capsid-overlay"></div>
       <div class="content-wrapper">
-        <div class="institution-badge">
-          <span class="pulse-dot"></span> DEPARTMENT OF BIOCHEMISTRY, S.P. COLLEGE
+        <div class="science-badge">
+          <span class="scanner-line"></span> CORE VIROLOGY INFRASTRUCTURE
         </div>
         <h1 class="hero-title">
           MOLECULAR <span class="text-gradient">VIROLOGY</span> LAB
         </h1>
-        <p class="hero-subtitle">Decoding Virus Pathogenesis</p>
-        <p class="hero-desc">Investigating HIV-1 molecular biology and genetic evolution with advanced structural modeling.</p>
+        <p class="hero-subtitle">Decoding HIV-1 Pathogenesis</p>
+        <p class="hero-desc">Investigating structural glycan shields, genetic variability trajectories, and host-cell entry complexes at S.P. College Srinagar.</p>
         <div class="hero-actions">
-          <a href="#quest" class="btn-primary">EXPLORE THE QUEST</a>
-          <a href="mailto:muzafarjan@gmail.com" class="btn-secondary">GET IN TOUCH</a>
+          <a href="#structural-matrix" class="btn-primary">INITIALIZE 3D ANALYSIS</a>
+          <a href="mailto:muzafarjan@gmail.com" class="btn-secondary">CONTACT PROTOCOL</a>
         </div>
       </div>
     </section>
 
-    <section class="matrix-section">
-      <div class="matrix-grid max-width-wrapper">
-        <div class="matrix-card">
-          <h3>TARGET</h3>
-          <p class="matrix-stat">HIV-1</p>
-          <p class="matrix-label">Primary Research Focus</p>
-        </div>
-        <div class="matrix-card">
-          <h3>COMPLEX</h3>
-          <p class="matrix-stat text-emerald">gp120</p>
-          <p class="matrix-label">Glycan Structural Mapping</p>
-        </div>
-        <div class="matrix-card">
-          <h3>PLATFORM</h3>
-          <p class="matrix-stat text-blue">3D</p>
-          <p class="matrix-label">Interactive Vector Analytics</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="viewer-section max-width-wrapper">
-      <div class="section-label">INTERACTIVE VECTOR MATRIX</div>
-      <h2 class="section-heading">HIV-1 gp120: CD4 Complex</h2>
+    <section id="structural-matrix" class="viewer-section max-width-wrapper">
+      <div class="section-label">DATA ACCESS // REPLICATING MOLECULAR VECTORS</div>
+      <h2 class="section-heading">HIV-1 gp120 / CD4 Complex Interactive Rendering</h2>
       
       <div class="glass-viewer-frame">
-        <div id="mol-canvas" class="canvas-container" data-pdb="1GC1"></div>
+        <div 
+          id="mol-canvas" 
+          class="viewer_3Dmoljs canvas-container" 
+          data-pdb="1GC1" 
+          data-backgroundcolor="0x030712" 
+          data-style="cartoon:color=spectrum"
+        ></div>
         
-        <div class="viewer-controls">
-          <button class="control-btn active" data-style="cartoon">Cartoon</button>
-          <button class="control-btn" data-style="surface">Surface</button>
-          <button class="control-btn" data-style="spacefill">Spacefill</button>
-          <div class="control-divider"></div>
-          <button class="control-btn highlight" data-highlight="cd4">CD4 Binding Loop</button>
-          <button class="control-btn highlight" data-highlight="phe43">Phe43 Pocket</button>
-          <button class="control-btn highlight" data-highlight="v3">V3 Loop</button>
+        <div class="scientific-legend">
+          <h4>MODEL IDENTIFIER: PDB 1GC1</h4>
+          <div class="legend-item"><span class="legend-dot spectral"></span> Spectrum Scale: Chain Map</div>
+          <div class="legend-item"><span class="legend-dot blue"></span> Target Core: gp120 Core</div>
+          <div class="legend-item"><span class="legend-dot emerald"></span> Receptor Vector: CD4 Interface</div>
         </div>
         
         <div class="viewer-instruction">
-          <span>🖱️ Drag to rotate • Scroll to zoom</span>
+          <span>🖱️ Left-Click + Drag to rotate structural bonds • Scroll to zoom fields</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="matrix-section max-width-wrapper">
+      <div class="matrix-grid">
+        <div class="matrix-card">
+          <span class="card-num">01</span>
+          <h3>Glycan Topography</h3>
+          <p>Mapping the shielding mechanisms of viral envelope components to expose target vulnerabilities.</p>
+        </div>
+        <div class="matrix-card">
+          <span class="card-num">02</span>
+          <h3>Genetic Evolution</h3>
+          <p>Tracking point mutations and structural alignment changes across regional isolates.</p>
+        </div>
+        <div class="matrix-card">
+          <span class="card-num">03</span>
+          <h3>Vector Kinetics</h3>
+          <p>Simulating structural docking interfaces between viral entry mechanisms and host cellular receptors.</p>
         </div>
       </div>
     </section>
@@ -75,10 +78,9 @@ import Navigation from '../components/Navigation.astro';
     <section id="quest" class="mission-section max-width-wrapper">
       <div class="grid-2col">
         <div class="mission-text-block">
-          <span class="section-label">OUR MISSION</span>
+          <div class="section-label">LABORATORY OBJECTIVE</div>
           <h2 class="section-heading">The Molecular Quest</h2>
-          <p>At the heart of the MJ's Lab lies a deep curiosity about viruses. Led by <strong>Dr. Muzafar Jan</strong>, our team is dedicated to pushing the boundaries of scientific understanding, primarily focused on studying HIV-1.</p>
-          <p style="margin-top: 16px;">Our research focuses on the intersection of molecular biology and virological techniques to explore HIV's glycan structures, genetic variability, and host interactions.</p>
+          <p>Led by <strong>Dr. Muzafar Jan</strong>, our team targets the intersection of wet-lab molecular biology and structural bioinformatics to explore HIV's glycan layouts, genetic variations, and cellular entry paths.</p>
         </div>
         <div class="quote-container">
           <div class="quote-card">
@@ -95,25 +97,33 @@ import Navigation from '../components/Navigation.astro';
         <p class="credits">Created by <a href="https://bhatmohsin.netlify.app" target="_blank">Bhat Mohsin</a></p>
       </div>
     </footer>
+
   </div>
 </MainLayout>
 
-<script is:inline src="https://3Dmol.org/build/3Dmol-min.js"></script>
+<script is:inline src="https://3dmol.org/build/3Dmol-min.js"></script>
 
 <style>
   :root {
-    --bg-dark: #030712;
-    --card-glass: rgba(15, 23, 42, 0.4);
-    --border-glass: rgba(255, 255, 255, 0.06);
+    --bg-dark: #020617;
+    --card-glass: rgba(15, 23, 42, 0.6);
+    --border-glass: rgba(255, 255, 255, 0.08);
     --neon-blue: #38bdf8;
     --neon-emerald: #34d399;
+    --text-muted: #9ca3af;
   }
 
-  /* Pushes content down so the fixed header doesn't overlap text layout */
-  .main-content-wrapper {
-    padding-top: 80px; 
-    position: relative;
-    z-index: 1;
+  .science-matrix-wrapper {
+    padding-top: 80px;
+    background-color: var(--bg-dark);
+    color: #f3f4f6;
+    font-family: system-ui, sans-serif;
+    min-height: 100vh;
+    /* High-contrast scientific grid background layout pattern */
+    background-image: 
+      linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
+    background-size: 40px 40px;
   }
 
   .max-width-wrapper {
@@ -122,89 +132,76 @@ import Navigation from '../components/Navigation.astro';
     padding: 0 24px;
   }
 
+  /* Hero Stage with an abstract molecular geometric network pattern overlay */
   .hero-stage {
     position: relative;
-    padding: 100px 24px 80px;
+    padding: 120px 24px 100px;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    overflow: hidden;
   }
 
-  .glow-bg-orb {
+  .hiv-capsid-overlay {
     position: absolute;
-    top: -10%;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, rgba(0,0,0,0) 70%);
-    z-index: 0;
+    inset: 0;
+    /* Creates a dark molecular atmospheric focus point */
+    background: radial-gradient(circle at 50% 30%, rgba(14, 116, 144, 0.15) 0%, rgba(2, 6, 23, 0) 60%);
     pointer-events: none;
   }
 
-  .institution-badge {
+  .science-badge {
     position: relative;
-    z-index: 10;
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border-glass);
-    padding: 6px 14px;
-    border-radius: 100px;
+    background: rgba(14, 116, 144, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    padding: 6px 16px;
+    border-radius: 4px;
     font-size: 0.75rem;
+    font-mono: monospace;
     letter-spacing: 0.15em;
-    color: #9ca3af;
-    text-transform: uppercase;
+    color: var(--neon-blue);
   }
 
-  .pulse-dot {
+  .scanner-line {
     width: 6px;
     height: 6px;
-    background: var(--neon-blue);
+    background: #fff;
     border-radius: 50%;
-    box-shadow: 0 0 10px var(--neon-blue);
+    box-shadow: 0 0 8px #fff;
   }
 
   .hero-title {
-    position: relative;
-    z-index: 10;
     font-size: clamp(2.5rem, 6vw, 4.5rem);
     font-weight: 900;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
     line-height: 1.1;
     margin: 24px 0 16px;
   }
 
   .text-gradient {
-    background: linear-gradient(to right, var(--neon-blue), var(--neon-emerald));
+    background: linear-gradient(to right, #67e8f9, var(--neon-blue));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
   .hero-subtitle {
-    position: relative;
-    z-index: 10;
     font-size: clamp(1.25rem, 2.5vw, 1.75rem);
     color: #e5e7eb;
-    font-weight: 300;
+    font-weight: 400;
     letter-spacing: 0.05em;
     margin-bottom: 20px;
   }
 
   .hero-desc {
-    position: relative;
-    z-index: 10;
-    max-width: 600px;
+    max-width: 650px;
     margin: 0 auto 40px;
-    color: #9ca3af;
+    color: var(--text-muted);
     font-size: 1.1rem;
     line-height: 1.6;
   }
 
   .hero-actions {
-    position: relative;
-    z-index: 10;
     display: flex;
     gap: 16px;
     justify-content: center;
@@ -212,20 +209,21 @@ import Navigation from '../components/Navigation.astro';
   }
 
   .btn-primary {
-    background: white;
-    color: black;
+    background: var(--neon-blue);
+    color: #020617;
     padding: 14px 28px;
-    border-radius: 6px;
+    border-radius: 4px;
     font-size: 0.85rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.05em;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3);
   }
 
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15);
+    background: #7dd3fc;
   }
 
   .btn-secondary {
@@ -233,74 +231,27 @@ import Navigation from '../components/Navigation.astro';
     border: 1px solid var(--border-glass);
     color: white;
     padding: 14px 28px;
-    border-radius: 6px;
+    border-radius: 4px;
     font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 0.05em;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
   }
 
   .btn-secondary:hover {
     background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.2);
   }
 
-  .matrix-section {
-    padding: 40px 0 80px;
-  }
-
-  .matrix-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-
-  .matrix-card {
-    background: var(--card-glass);
-    border: 1px solid var(--border-glass);
-    padding: 32px;
-    border-radius: 12px;
-    backdrop-filter: blur(12px);
-    transition: border-color 0.4s ease, transform 0.4s ease;
-  }
-
-  .matrix-card:hover {
-    border-color: rgba(56, 189, 248, 0.3);
-    transform: translateY(-4px);
-  }
-
-  .matrix-card h3 {
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    color: #6b7280;
-    margin-bottom: 12px;
-  }
-
-  .matrix-stat {
-    font-size: 2.5rem;
-    font-weight: 800;
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-
-  .text-emerald { color: var(--neon-emerald); }
-  .text-blue { color: var(--neon-blue); }
-
-  .matrix-label {
-    font-size: 0.9rem;
-    color: #9ca3af;
-  }
-
+  /* 3D Framework Viewport Frame */
   .viewer-section {
-    padding: 60px 24px 100px;
+    padding: 60px 24px 80px;
   }
 
   .section-label {
     font-size: 0.75rem;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.15em;
     color: var(--neon-blue);
-    text-transform: uppercase;
     margin-bottom: 8px;
     font-weight: 600;
   }
@@ -314,83 +265,113 @@ import Navigation from '../components/Navigation.astro';
 
   .glass-viewer-frame {
     position: relative;
-    background: #090d16;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
+    background: #030712;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   }
 
   .canvas-container {
     width: 100%;
     height: 550px;
-    background-color: #020408;
+    position: relative;
   }
 
-  .viewer-controls {
+  /* Structural Scientific Data Legend Overlay */
+  .scientific-legend {
     position: absolute;
-    top: 20px;
-    left: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    background: rgba(3, 7, 18, 0.8);
-    padding: 6px;
-    border-radius: 8px;
+    top: 24px;
+    left: 24px;
+    background: rgba(2, 6, 23, 0.85);
     border: 1px solid var(--border-glass);
+    padding: 20px;
+    border-radius: 6px;
     backdrop-filter: blur(8px);
-    z-index: 20;
+    z-index: 10;
   }
 
-  .control-btn {
-    background: transparent;
-    border: none;
-    color: #9ca3af;
-    padding: 8px 14px;
+  .scientific-legend h4 {
     font-size: 0.8rem;
-    font-weight: 500;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    letter-spacing: 0.05em;
+    margin: 0 0 12px 0;
+    color: #fff;
   }
 
-  .control-btn:hover {
-    color: white;
-    background: rgba(255,255,255,0.04);
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.8rem;
+    color: #9ca3af;
+    margin-bottom: 8px;
   }
 
-  .control-btn.active {
-    background: white;
-    color: black;
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
   }
-
-  .control-divider {
-    width: 1px;
-    background: rgba(255,255,255,0.1);
-    margin: 4px 6px;
-  }
-
-  .control-btn.highlight:hover {
-    box-shadow: 0 0 12px rgba(56,189,248,0.3);
-    border: 1px solid rgba(56,189,248,0.4);
-    color: var(--neon-blue);
-  }
+  .legend-dot.spectral { background: linear-gradient(to right, red, orange, yellow, green, blue); }
+  .legend-dot.blue { background: var(--neon-blue); }
+  .legend-dot.emerald { background: var(--neon-emerald); }
 
   .viewer-instruction {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
-    background: rgba(3, 7, 18, 0.6);
-    padding: 6px 14px;
-    border-radius: 100px;
+    bottom: 24px;
+    right: 24px;
+    background: rgba(2, 6, 23, 0.8);
+    padding: 8px 16px;
+    border-radius: 4px;
     font-size: 0.8rem;
     color: #6b7280;
     border: 1px solid var(--border-glass);
-    backdrop-filter: blur(4px);
   }
 
+  /* Metric Info Cards */
+  .matrix-section {
+    padding: 40px 24px 100px;
+  }
+
+  .matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .matrix-card {
+    background: var(--card-glass);
+    border: 1px solid var(--border-glass);
+    padding: 40px;
+    border-radius: 8px;
+    position: relative;
+  }
+
+  .card-num {
+    font-size: 0.8rem;
+    color: var(--neon-blue);
+    font-mono: monospace;
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .matrix-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+
+  .matrix-card p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Mission Segment Layout */
   .mission-section {
-    padding: 80px 24px 140px;
+    padding: 80px 24px 120px;
     border-top: 1px solid var(--border-glass);
   }
 
@@ -403,8 +384,8 @@ import Navigation from '../components/Navigation.astro';
 
   .mission-text-block p {
     font-size: 1.1rem;
-    line-height: 1.7;
-    color: #9ca3af;
+    line-height: 1.8;
+    color: var(--text-muted);
   }
 
   .quote-container {
@@ -414,31 +395,28 @@ import Navigation from '../components/Navigation.astro';
 
   .quote-card {
     position: relative;
-    background: linear-gradient(135deg, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0.03) 100%);
+    background: rgba(255,255,255,0.01);
     border: 1px solid var(--border-glass);
-    padding: 48px;
-    border-radius: 16px;
-    text-align: center;
-    max-width: 400px;
+    padding: 40px;
+    border-radius: 8px;
   }
 
   .quote-mark {
     position: absolute;
     top: -10px;
-    left: 30px;
-    font-size: 5rem;
-    font-family: Georgia, serif;
-    color: rgba(56, 189, 248, 0.15);
-    line-height: 1;
+    left: 24px;
+    font-size: 4rem;
+    color: rgba(56,189,248,0.1);
   }
 
   .quote-card blockquote {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-style: italic;
-    line-height: 1.4;
-    font-weight: 300;
+    color: #e5e7eb;
+    margin: 0;
   }
 
+  /* Footer Layout */
   .cinematic-footer {
     border-top: 1px solid var(--border-glass);
     padding: 40px 0;
@@ -457,15 +435,10 @@ import Navigation from '../components/Navigation.astro';
   .credits a {
     color: #9ca3af;
     text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .credits a:hover {
-    color: var(--neon-blue);
   }
 
   @media (max-width: 968px) {
-    .matrix-grid { grid-template-columns: 1fr; gap: 16px; }
+    .matrix-grid { grid-template-columns: 1fr; }
     .grid-2col { grid-template-columns: 1fr; gap: 40px; }
     .footer-content { flex-direction: column; text-align: center; }
   }
