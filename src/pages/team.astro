@@ -1,571 +1,320 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import Navigation from '../components/Navigation.astro';
-import { getCollection } from 'astro:content';
-
-const allTeam = await getCollection('team');
-const sortedTeam = allTeam.sort((a, b) => a.data.order - b.data.order);
-
-const pi = sortedTeam.find(member => member.data.role.toLowerCase().includes('pi') || member.data.name.toLowerCase().includes('muzafar'));
-const currentMembers = sortedTeam.filter(member => member !== pi && !member.data.isPast);
-const pastEntries = sortedTeam.filter(member => member.data.isPast);
-const pastStudents = pastEntries.flatMap(entry => entry.data.pastNames || [entry.data.name]);
-
-// For PI content rendering
-const { Content: PiContent } = pi ? await pi.render() : { Content: null };
-
-const icons = {
-  linkedin: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>',
-  twitter: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>',
-  github: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>',
-  email: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>'
-};
 ---
 
 <MainLayout 
-  title="Team"
-  description="Meet the researchers at MJ's Lab: Dr. Muzafar Jan (PI) and the dedicated team of trainees and students specializing in virology and biochemistry."
+  title="Team | Molecular Virology Lab"
+  description="Meet the investigators, molecular biologists, and research trainees driving discoveries at MJ's Lab."
 >
   <Navigation />
-  <div class="people-container">
-    <header class="section-header fade-up">
-      <span class="section-title">THE COLLECTIVE</span>
-      <h1>People</h1>
-      <p class="subtitle" style="font-size: clamp(1.1rem, 2vw, 1.4rem);">A dedicated group of researchers exploring the molecular frontiers of virology.</p>
+
+  <div class="main-content-wrapper">
+    <header class="team-header max-width-wrapper">
+      <div class="section-label">LABORATORY ROSTER</div>
+      <h1>Investigative Roster</h1>
+      <p class="subtitle">The minds parsing complex viral data matrices, structural phenotypes, and molecular topography.</p>
     </header>
 
-    {pi && (
-      <section class="pi-section fade-up">
-        <div class="pi-grid">
-          <div class="pi-image-wrapper">
-            {pi.data.image ? (
-              <img src={pi.data.image} alt={pi.data.name} class="pi-img" />
-            ) : (
-              <div class="image-placeholder pi-img">[ PI PORTRAIT ]</div>
-            )}
-            <div class="pi-socials">
-              {pi.data.linkedin && <a href={pi.data.linkedin} target="_blank" aria-label="LinkedIn" set:html={icons.linkedin} />}
-              {pi.data.twitter && <a href={pi.data.twitter} target="_blank" aria-label="Twitter" set:html={icons.twitter} />}
-              {pi.data.email && <a href={`mailto:${pi.data.email}`} aria-label="Email" set:html={icons.email} />}
-            </div>
-          </div>
-          <div class="pi-info">
-            <span class="role-badge">{pi.data.role}</span>
-            <h2>{pi.data.name}</h2>
-            <div class="pi-bio">
-              {PiContent && <PiContent />}
-            </div>
+    <section class="pi-section max-width-wrapper">
+      <div class="pi-card">
+        <div class="pi-glow"></div>
+        <div class="pi-meta">
+          <span class="pi-tag">PRINCIPAL INVESTIGATOR</span>
+          <h2>Dr. Muzafar Jan</h2>
+          <p class="pi-title">Head of Molecular Virology Laboratory</p>
+          <p class="pi-bio">Coordinating the intersection of clinical virology protocols and multi-dimensional computational structural informatics. Dr. Jan leads the lab's exploration into HIV-1 glycan topography, mutational resistance mapping, and novel host-cell binding profiles within the Department of Biochemistry.</p>
+          <div class="pi-contact-row">
+            <span>✉️ muzafarjan@gmail.com</span>
+            <span>📍 S.P. College Srinagar</span>
           </div>
         </div>
-      </section>
-    )}
+      </div>
+    </section>
 
-    <section class="members-section">
+    <section class="members-section max-width-wrapper">
+      <div class="section-label-mid">ACTIVE RESEARCH COHORT</div>
+      
       <div class="members-grid">
-        {currentMembers.map((member, index) => (
-          <div class="member-card fade-up" style={`animation-delay: ${index * 0.1}s`}>
-            <div class="member-image">
-              {member.data.image ? (
-                <img src={member.data.image} alt={member.data.name} />
-              ) : (
-                <div class="image-placeholder">[ {member.data.name.toUpperCase()} ]</div>
-              )}
-              <div class="member-overlay">
-                <button 
-                  class="learn-more-btn" 
-                  data-name={member.data.name}
-                  data-role={member.data.role}
-                  data-bio={member.body}
-                  data-image={member.data.image}
-                  data-linkedin={member.data.linkedin}
-                  data-github={member.data.github}
-                  data-email={member.data.email}
-                >LEARN MORE</button>
-              </div>
-            </div>
-            <div class="member-info">
-              <div class="member-header">
-                <h3>{member.data.name}</h3>
-                <div class="social-mini">
-                  {member.data.linkedin && <a href={member.data.linkedin} target="_blank" set:html={icons.linkedin} aria-label="LinkedIn" />}
-                  {member.data.email && <a href={`mailto:${member.data.email}`} set:html={icons.email} aria-label="Email" />}
-                </div>
-              </div>
-              <p class="member-role">{member.data.role}</p>
-              <!-- Hidden bio for SEO indexing -->
-              <div class="seo-bio" style="display: none;">{member.body}</div>
-            </div>
-          </div>
-        ))}
+        
+        <div class="member-card">
+          <div class="member-badge">BIOINFORMATICS</div>
+          <h3>Mir Tuha Sana</h3>
+          <p class="member-role">Research Scholar</p>
+          <p class="member-desc">Specializes in managing high-throughput viral genomic data streams and parsing structural alignments.</p>
+          <div class="member-email">✉️ Mirtuha9682@gmail.com</div>
+        </div>
+
+        <div class="member-card panel-emerald">
+          <div class="member-badge badge-emerald">STRUCTURAL ANALYTICS</div>
+          <h3>Shahid Showkat</h3>
+          <p class="member-role">Research Scholar</p>
+          <p class="member-desc">Focuses on generating 3D macromolecular docking grids and evaluating spatial binding configurations.</p>
+          <div class="member-email">✉️ Shayan287472@gamil.com</div>
+        </div>
+
+        <div class="member-card panel-purple">
+          <div class="member-badge badge-purple">MOLECULAR ASSAYS</div>
+          <h3>Urooba Sadiq</h3>
+          <p class="member-role">Graduate Trainee</p>
+          <p class="member-desc">Assisting with sample preparation pipelines, target amplification controls, and assay documentation.</p>
+          <div class="member-email">✉️ Uroobasadiq194@gmail.com</div>
+        </div>
+
+        <div class="member-card panel-purple">
+          <div class="member-badge badge-purple">VIROLOGY DYNAMICS</div>
+          <h3>Tooba Jan</h3>
+          <p class="member-role">Dissertation Scholar</p>
+          <p class="member-desc">Investigating viral replication trajectories and tracking mutational variances within isolates.</p>
+          <div class="member-email">✉️ toobajan8082@gmail.com</div>
+        </div>
+
+        <div class="member-card">
+          <div class="member-badge">DATA SYSTEMS</div>
+          <h3>Umaid Mir</h3>
+          <p class="member-role">Research Trainee</p>
+          <p class="member-desc">Managing computational platform environments and archiving high-density sequence strings.</p>
+          <div class="member-email">✉️ umaidmir635@gmail.com</div>
+        </div>
+
+        <div class="member-card panel-emerald">
+          <div class="member-badge badge-emerald">BIOCHEMISTRY</div>
+          <h3>Mohsin Anjum</h3>
+          <p class="member-role">Technical Officer</p>
+          <p class="member-desc">Overseeing laboratory chemical matrices, calibration safety grids, and processing frameworks.</p>
+          <div class="member-email">✉️ Mosin09@yahoo.com</div>
+        </div>
+
+        <div class="member-card panel-purple">
+          <div class="member-badge badge-purple">GLYCAN MAPPING</div>
+          <h3>Mehak Maqbool</h3>
+          <p class="member-role">Dissertation Scholar</p>
+          <p class="member-desc">Studying structural variations inside surface envelope glycoproteins and carbohydrate shield models.</p>
+          <div class="member-email">✉️ mehakmaqbool99@gmail.com</div>
+        </div>
+
+        <div class="member-card">
+          <div class="member-badge">PHYLOGENETICS</div>
+          <h3>Tehniyat Farooq</h3>
+          <p class="member-role">Research Scholar</p>
+          <p class="member-desc">Tracing evolutionary maps of pathogenic strains using computational branch vector scoring equations.</p>
+          <div class="member-email">✉️ tehniyatrather@gmail.com</div>
+        </div>
+
       </div>
     </section>
-
-    <section class="join-the-team fade-up">
-      <div class="join-card">
-        <span class="section-title">OPPORTUNITIES</span>
-        <h2>Join the Lab</h2>
-        <p>We are always looking for passionate researchers, students, and postdocs to join our quest in molecular virology. If you are interested in our work, please reach out.</p>
-        <div class="contact-action">
-           <a href="mailto:muzafarjan@gmail.com" class="cta-button">SEND YOUR CV</a>
-        </div>
-      </div>
-    </section>
-
-    {pastStudents.length > 0 && (
-      <section class="alumni-section fade-up">
-        <header class="alumni-header">
-          <span class="section-title">CHRONICLE</span>
-          <h2>Alumni</h2>
-        </header>
-        <div class="alumni-grid">
-          {pastStudents.map((name) => (
-            <div class="alumni-item">
-              <span>{name}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-    )}
-
-    <!-- Modal Structure -->
-    <div id="member-modal" class="modal">
-      <div class="modal-content">
-        <button class="close-modal">&times;</button>
-        <div class="modal-body-layout">
-          <div class="modal-image-col">
-            <img id="modal-img" src="" alt="" />
-          </div>
-          <div class="modal-info-col">
-            <span id="modal-role" class="role-badge"></span>
-            <h2 id="modal-name"></h2>
-            <div id="modal-bio" class="modal-bio-text"></div>
-            <div class="modal-socials" id="modal-socials">
-              <!-- JS will populate -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </MainLayout>
 
-<script>
-  const modal = document.getElementById('member-modal');
-  const closeBtn = document.querySelector('.close-modal');
-  const learnMoreBtns = document.querySelectorAll('.learn-more-btn');
-
-  const icons = {
-    linkedin: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>',
-    github: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>',
-    email: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>'
-  };
-
-  learnMoreBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const { name, role, bio, image, linkedin, github, email } = btn.dataset;
-      
-      const modalName = document.getElementById('modal-name');
-      const modalRole = document.getElementById('modal-role');
-      const modalBio = document.getElementById('modal-bio');
-      const modalImg = document.getElementById('modal-img');
-
-      if (modalName) modalName.textContent = name || '';
-      if (modalRole) modalRole.textContent = role || '';
-      if (modalBio && bio) modalBio.innerHTML = `<p>${bio.replace(/\n/g, '</p><p>')}</p>`;
-      if (modalImg) {
-        modalImg.src = image || '';
-        modalImg.alt = name || '';
-      }
-
-      const socialContainer = document.getElementById('modal-socials');
-      if (socialContainer) {
-        socialContainer.innerHTML = '';
-        if (linkedin) socialContainer.innerHTML += `<a href="${linkedin}" target="_blank" class="modal-social-link">${icons.linkedin} LinkedIn</a>`;
-        if (github) socialContainer.innerHTML += `<a href="${github}" target="_blank" class="modal-social-link">${icons.github} GitHub</a>`;
-        if (email) socialContainer.innerHTML += `<a href="mailto:${email}" class="modal-social-link">${icons.email} Email</a>`;
-      }
-
-      modal?.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    });
-  });
-
-  const closeModal = () => {
-    modal?.classList.remove('active');
-    document.body.style.overflow = '';
-  };
-
-  closeBtn?.addEventListener('click', closeModal);
-  modal?.addEventListener('click', (e) => {
-    if (e.target === modal) closeModal();
-  });
-</script>
-
 <style>
-  .people-container {
-    max-width: 1400px;
+  :root {
+    --bg-dark: #030712;
+    --card-glass: rgba(15, 23, 42, 0.4);
+    --border-glass: rgba(255, 255, 255, 0.06);
+    --neon-blue: #38bdf8;
+    --neon-emerald: #34d399;
+    --neon-purple: #a855f7;
+    --text-muted: #9ca3af;
+  }
+
+  .main-content-wrapper {
+    padding-top: 100px;
+    background-color: var(--bg-dark);
+    color: #f3f4f6;
+    font-family: system-ui, sans-serif;
+    min-height: 100vh;
+    background-image: 
+      linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  .max-width-wrapper {
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 100px 40px 40px;
+    padding: 0 24px;
   }
 
-  .section-header {
-    margin-bottom: 60px;
+  .team-header {
     text-align: center;
+    padding: 60px 24px 40px;
   }
 
-  h1 { font-size: clamp(3.5rem, 8vw, 6rem); line-height: 1; margin: 1.5rem 0; }
-  .subtitle { 
-    opacity: 0.8; 
-    max-width: 600px; 
-    margin: 0 auto; 
-    line-height: 1.6; 
-    font-size: 1.25rem; 
-    letter-spacing: 0.05em;
-  }
-
-  /* PI Section */
-  .pi-section {
-    margin-bottom: 100px;
-  }
-
-  .pi-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 80px;
-    align-items: center;
-  }
-
-  .pi-image-wrapper {
-    position: relative;
-    aspect-ratio: 4/5;
-    overflow: hidden;
-  }
-
-  .pi-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-
-  .pi-grid:hover .pi-img {
-    transform: scale(1.05);
-  }
-
-  .pi-socials {
-    position: absolute;
-    bottom: 30px;
-    left: 30px;
-    display: flex;
-    gap: 15px;
-    z-index: 10;
-  }
-
-  .pi-socials a {
-    width: 44px;
-    height: 44px;
-    background: white;
-    color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-  }
-
-  .pi-socials a:hover {
-    background: black;
-    color: white;
-    transform: translateY(-5px);
-  }
-
-  .pi-info h2 {
-    font-size: 4rem;
-    margin: 1.5rem 0;
-  }
-
-  .role-badge {
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--neon-blue);
     text-transform: uppercase;
-    opacity: 0.5;
-    border: 1px solid rgba(255,255,255,0.2);
-    padding: 8px 16px;
-    border-radius: 100px;
-    display: inline-block;
+    font-weight: 600;
+    margin-bottom: 12px;
   }
 
-  .pi-bio p {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    opacity: 0.8;
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    color: #fff;
   }
 
-  /* Members Grid */
+  .subtitle {
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    color: var(--text-muted);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .pi-section {
+    padding-bottom: 60px;
+  }
+
+  .pi-card {
+    position: relative;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(3, 7, 18, 0.8) 100%);
+    border: 1px solid rgba(56, 189, 248, 0.15);
+    border-radius: 16px;
+    padding: 48px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  }
+
+  .pi-glow {
+    position: absolute;
+    top: -20%;
+    left: -10%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, rgba(0,0,0,0) 70%);
+    pointer-events: none;
+  }
+
+  .pi-tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--neon-blue);
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .pi-meta h2 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 6px 0;
+    letter-spacing: -0.01em;
+  }
+
+  .pi-title {
+    font-size: 1.1rem;
+    color: #e5e7eb;
+    margin: 0 0 24px 0;
+    font-weight: 500;
+  }
+
+  .pi-bio {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    max-width: 900px;
+    margin-bottom: 32px;
+  }
+
+  .pi-contact-row {
+    display: flex;
+    gap: 32px;
+    font-size: 0.9rem;
+    color: #64748b;
+    font-family: monospace;
+  }
+
+  .members-section {
+    padding: 40px 24px 120px;
+    border-top: 1px solid var(--border-glass);
+  }
+
+  .section-label-mid {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: #64748b;
+    margin-bottom: 32px;
+    font-weight: 600;
+  }
+
   .members-grid {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 60px 30px;
-    margin-bottom: 160px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
   }
 
   .member-card {
-    grid-column: span 3;
-  }
-
-  .member-image {
-    width: 100%;
-    aspect-ratio: 3/4;
-    background: #111;
-    overflow: hidden;
-    position: relative;
-    margin-bottom: 25px;
-  }
-
-  .member-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-
-  .member-card:hover img {
-    transform: scale(1.1);
-  }
-
-  .member-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
+    background: var(--card-glass);
+    border: 1px solid var(--border-glass);
+    padding: 32px;
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
     display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.4s ease;
+    flex-direction: column;
+    transition: transform 0.3s ease, border-color 0.3s ease;
   }
 
-  .member-card:hover .member-overlay {
-    opacity: 1;
-  }
+  .member-card:hover { transform: translateY(-4px); border-color: rgba(56, 189, 248, 0.25); }
+  .member-card.panel-emerald:hover { border-color: rgba(52, 211, 153, 0.25); }
+  .member-card.panel-purple:hover { border-color: rgba(168, 85, 247, 0.25); }
 
-  .learn-more-btn {
-    background: transparent;
-    border: 1px solid white;
-    color: white;
-    padding: 12px 24px;
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  .member-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--neon-blue);
+    background: rgba(56, 189, 248, 0.06);
+    padding: 4px 8px;
+    border-radius: 4px;
+    align-self: flex-start;
+    margin-bottom: 20px;
   }
+  .member-badge.badge-emerald { color: var(--neon-emerald); background: rgba(52, 211, 153, 0.06); }
+  .member-badge.badge-purple { color: var(--neon-purple); background: rgba(168, 85, 247, 0.06); }
 
-  .learn-more-btn:hover {
-    background: white;
-    color: black;
-  }
-
-  .member-info h3 {
-    font-size: 1.4rem;
-    margin-bottom: 5px;
-    text-transform: none;
-    letter-spacing: 0;
-  }
-
-  .member-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 10px;
-  }
-
-  .social-mini {
-    display: flex;
-    gap: 8px;
-    opacity: 0.4;
-  }
-
-  .social-mini a:hover {
-    opacity: 1;
-    color: var(--accent-blue);
+  .member-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 4px 0;
   }
 
   .member-role {
-    font-size: 1rem;
-    opacity: 0.85;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    color: #e5e7eb;
+    margin: 0 0 16px 0;
+    font-weight: 500;
   }
 
-  /* Join Card */
-  .join-the-team {
-    margin-bottom: 160px;
+  .member-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 20px;
   }
 
-  .join-card {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 80px;
-    text-align: center;
-    max-width: 900px;
-    margin: 0 auto;
+  .member-email {
+    margin-top: auto;
+    font-size: 0.75rem;
+    font-family: monospace;
+    color: #4b5563;
   }
-
-  .join-card h2 { font-size: 3rem; margin: 1.5rem 0; }
-  .join-card p { opacity: 0.7; font-size: 1.2rem; line-height: 1.7; margin-bottom: 3rem; }
-
-  .cta-button {
-    background: white;
-    color: black;
-    padding: 20px 40px;
-    font-size: 0.8rem;
-    letter-spacing: 0.3em;
-    font-weight: 600;
-    text-transform: uppercase;
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    display: inline-block;
-  }
-
-  .cta-button:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(255,255,255,0.1);
-    opacity: 0.95;
-  }
-
-  /* Modal */
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.95);
-    z-index: 10000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.5s ease;
-    backdrop-filter: blur(10px);
-  }
-
-  .modal.active {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .modal-content {
-    background: #0a0a0a;
-    width: 90%;
-    max-width: 1000px;
-    max-height: 90vh;
-    position: relative;
-    padding: 60px;
-    border: 1px solid rgba(255,255,255,0.1);
-    overflow-y: auto;
-  }
-
-  .close-modal {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 2.5rem;
-    cursor: pointer;
-    opacity: 0.5;
-    line-height: 1;
-  }
-
-  .close-modal:hover { opacity: 1; }
-
-  .modal-body-layout {
-    display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    gap: 60px;
-  }
-
-  .modal-image-col img {
-    width: 100%;
-    aspect-ratio: 3/4;
-    object-fit: cover;
-  }
-
-  .modal-info-col h2 {
-    font-size: 3rem;
-    margin: 1.5rem 0;
-    text-transform: none;
-  }
-
-  .modal-bio-text {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    opacity: 0.8;
-    margin-bottom: 3rem;
-  }
-
-  .modal-bio-text p { margin-bottom: 1.5rem; }
-
-  .modal-socials {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-
-  .modal-social-link {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    border: 1px solid rgba(255,255,255,0.2);
-    padding: 10px 20px;
-    transition: all 0.3s ease;
-  }
-
-  .modal-social-link:hover {
-    background: white;
-    color: black;
-    border-color: white;
-  }
-
-  /* Alumni */
-  .alumni-header { margin-bottom: 60px; text-align: center; }
-  .alumni-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 60px;
-  }
-
-  .alumni-item {
-    font-size: 1.2rem;
-    opacity: 0.7;
-    font-family: var(--font-serif);
-    text-align: center;
+  .member-card:hover .member-email {
+    color: #94a3b8;
   }
 
   @media (max-width: 1024px) {
-    .member-card { grid-column: span 4; }
-    .pi-grid { grid-template-columns: 1fr; gap: 40px; }
+    .members-grid { grid-template-columns: repeat(2, 1fr); }
   }
-
   @media (max-width: 768px) {
-    .people-container { padding: 120px 24px 60px; }
-    .member-card { grid-column: span 6; }
-    .pi-info h2 { font-size: 3rem; }
-    .modal-body-layout { grid-template-columns: 1fr; gap: 30px; }
-    .modal-content { padding: 40px 24px; }
-    .join-card { padding: 40px 24px; }
-  }
-
-  @media (max-width: 480px) {
-    .member-card { grid-column: span 12; }
+    .members-grid { grid-template-columns: 1fr; }
+    .pi-card { padding: 32px; }
+    .pi-contact-row { flex-direction: column; gap: 8px; }
   }
 </style>
