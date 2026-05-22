@@ -3,22 +3,18 @@ import { getCollection } from 'astro:content';
 import MainLayout from '../layouts/MainLayout.astro';
 import Navigation from '../components/Navigation.astro';
 
-// 1. Fetch all team data files dynamically
-const allTeamFiles = await getCollection('team');
-
-// 2. Filter out the boss from the dynamic loops since he is permanently at the top
-const staffMembers = allTeamFiles.filter(member => member.slug !== 'muzzafar-jan');
-
-// 3. Separate the rest into Active Interns and Alumni based on "isPast"
-const activeInterns = staffMembers
-  .filter(member => !member.data.isPast)
+// 1. Fetch active interns from the 'team' folder (ignoring the boss if his file is there)
+const teamFiles = await getCollection('team');
+const activeInterns = teamFiles
+  .filter(member => member.slug !== 'muzzafar-jan')
   .sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
 
-const alumniMembers = staffMembers
-  .filter(member => member.data.isPast)
+// 2. Fetch past members from the brand new 'alumni' folder
+const alumniFiles = await getCollection('alumni');
+const alumniMembers = alumniFiles
   .sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
 
-// 4. Pre-render descriptions safely
+// 3. Pre-render texts safely
 const renderedActive = await Promise.all(
   activeInterns.map(async (member) => {
     const { Content } = await member.render();
@@ -41,7 +37,7 @@ const renderedAlumni = await Promise.all(
   <Navigation />
 
   <div class="main-content-wrapper">
-    <!-- Header -->
+    <!-- Header Stage -->
     <header class="team-header max-width-wrapper">
       <div class="section-label">LABORATORY ROSTER</div>
       <h1>Investigative Roster</h1>
@@ -65,7 +61,7 @@ const renderedAlumni = await Promise.all(
       </div>
     </section>
 
-    <!-- DYNAMIC ACTIVE COHORT SECTION -->
+    <!-- ACTIVE RESEARCH COHORT (Pulls from src/content/team/) -->
     <section class="members-section max-width-wrapper">
       <div class="section-label-mid">ACTIVE RESEARCH COHORT</div>
       <div class="members-grid">
@@ -81,7 +77,7 @@ const renderedAlumni = await Promise.all(
       </div>
     </section>
 
-    <!-- DYNAMIC ALUMNI SECTION -->
+    <!-- ALUMNI SECTION (Pulls from src/content/alumni/) -->
     {renderedAlumni.length > 0 && (
       <section class="alumni-section max-width-wrapper">
         <div class="section-label-alumni">LABORATORY ALUMNI</div>
@@ -141,26 +137,9 @@ const renderedAlumni = await Promise.all(
     margin-bottom: 12px;
   }
 
-  h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    margin-bottom: 16px;
-    color: #fff;
-  }
-
-  .subtitle {
-    font-size: clamp(1.1rem, 2vw, 1.3rem);
-    color: var(--text-muted);
-    max-width: 700px;
-    margin: 0 auto;
-    line-height: 1.6;
-    font-weight: 300;
-  }
-
-  .pi-section {
-    padding-bottom: 40px;
-  }
+  h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; letter-spacing: -0.02em; margin-bottom: 16px; color: #fff; }
+  .subtitle { font-size: clamp(1.1rem, 2vw, 1.3rem); color: var(--text-muted); max-width: 700px; margin: 0 auto; line-height: 1.6; font-weight: 300; }
+  .pi-section { padding-bottom: 40px; }
 
   .pi-card {
     position: relative;
@@ -182,64 +161,15 @@ const renderedAlumni = await Promise.all(
     pointer-events: none;
   }
 
-  .pi-tag {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    color: var(--neon-blue);
-    display: block;
-    margin-bottom: 12px;
-  }
+  .pi-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; color: var(--neon-blue); display: block; margin-bottom: 12px; }
+  .pi-meta h2 { font-size: 2.25rem; font-weight: 800; color: #fff; margin: 0 0 6px 0; letter-spacing: -0.01em; }
+  .pi-title { font-size: 1.1rem; color: #e5e7eb; margin: 0 0 24px 0; font-weight: 500; }
+  .pi-bio { color: var(--text-muted); font-size: 1.1rem; line-height: 1.7; max-width: 900px; margin-bottom: 32px; }
+  .pi-contact-row { display: flex; gap: 32px; font-size: 0.9rem; color: #64748b; font-family: monospace; }
 
-  .pi-meta h2 {
-    font-size: 2.25rem;
-    font-weight: 800;
-    color: #fff;
-    margin: 0 0 6px 0;
-    letter-spacing: -0.01em;
-  }
-
-  .pi-title {
-    font-size: 1.1rem;
-    color: #e5e7eb;
-    margin: 0 0 24px 0;
-    font-weight: 500;
-  }
-
-  .pi-bio {
-    color: var(--text-muted);
-    font-size: 1.1rem;
-    line-height: 1.7;
-    max-width: 900px;
-    margin-bottom: 32px;
-  }
-
-  .pi-contact-row {
-    display: flex;
-    gap: 32px;
-    font-size: 0.9rem;
-    color: #64748b;
-    font-family: monospace;
-  }
-
-  .members-section {
-    padding: 40px 24px 80px;
-    border-top: 1px solid var(--border-glass);
-  }
-
-  .section-label-mid {
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    color: #64748b;
-    margin-bottom: 32px;
-    font-weight: 600;
-  }
-
-  .members-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
+  .members-section { padding: 40px 24px 80px; border-top: 1px solid var(--border-glass); }
+  .section-label-mid { font-size: 0.75rem; letter-spacing: 0.15em; color: #64748b; margin-bottom: 32px; font-weight: 600; }
+  .members-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 
   .member-card {
     background: var(--card-glass);
@@ -252,10 +182,7 @@ const renderedAlumni = await Promise.all(
     transition: transform 0.3s ease, border-color 0.3s ease;
   }
 
-  .member-card:hover { 
-    transform: translateY(-4px); 
-    border-color: rgba(56, 189, 248, 0.25); 
-  }
+  .member-card:hover { transform: translateY(-4px); border-color: rgba(56, 189, 248, 0.25); }
 
   .member-badge {
     font-size: 0.65rem;
@@ -270,68 +197,17 @@ const renderedAlumni = await Promise.all(
     text-transform: uppercase;
   }
 
-  .member-card h3 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #fff;
-    margin: 0 0 4px 0;
-  }
-
-  .member-role {
-    font-size: 0.85rem;
-    color: #e5e7eb;
-    margin: 0 0 16px 0;
-    font-weight: 500;
-  }
-
-  .member-desc {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 20px;
-  }
-
-  .member-email {
-    margin-top: auto;
-    font-size: 0.75rem;
-    font-family: monospace;
-    color: #4b5563;
-  }
+  .member-card h3 { font-size: 1.25rem; font-weight: 700; color: #fff; margin: 0 0 4px 0; }
+  .member-role { font-size: 0.85rem; color: #e5e7eb; margin: 0 0 16px 0; font-weight: 500; }
+  .member-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
+  .member-email { margin-top: auto; font-size: 0.75rem; font-family: monospace; color: #4b5563; }
 
   /* ALUMNI STYLES */
-  .alumni-section {
-    padding: 60px 24px 120px;
-    border-top: 1px solid rgba(255, 255, 255, 0.04);
-  }
-
-  .section-label-alumni {
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    color: #64748b;
-    text-transform: uppercase;
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-
-  .alumni-subtitle {
-    font-size: 1rem;
-    color: #64748b;
-    margin-bottom: 40px;
-  }
-
-  .alumni-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-  }
-
-  .alumni-card {
-    background: rgba(15, 23, 42, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.03);
-    padding: 24px;
-    border-radius: 8px;
-  }
-
+  .alumni-section { padding: 60px 24px 120px; border-top: 1px solid rgba(255, 255, 255, 0.04); }
+  .section-label-alumni { font-size: 0.75rem; letter-spacing: 0.2em; color: #64748b; text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
+  .alumni-subtitle { font-size: 1rem; color: #64748b; margin-bottom: 40px; }
+  .alumni-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .alumni-card { background: rgba(15, 23, 42, 0.2); border: 1px solid rgba(255, 255, 255, 0.03); padding: 24px; border-radius: 8px; }
   .alumni-card h3 { font-size: 1.1rem; font-weight: 600; color: #cbd5e1; margin: 0 0 4px 0; }
   .alumni-role { font-size: 0.8rem; color: #64748b; margin: 0 0 12px 0; }
   .alumni-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
