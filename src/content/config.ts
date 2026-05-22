@@ -1,66 +1,27 @@
-import { z, defineCollection } from 'astro:content';
+import { defineCollection, z } from 'astro:content';
 
-const researchCollection = defineCollection({
-  type: 'content',
-  schema: z.object({
-    title: z.string(),
-    description: z.string(), // Short description for the card
-    order: z.number().default(100),
-    color: z.enum(['var(--accent-blue)', 'var(--accent-purple)', 'var(--accent-cyan)', 'var(--accent-pink)']).default('var(--accent-blue)'),
-  }),
-});
-
+// Configuration for Active Team Members
 const teamCollection = defineCollection({
   type: 'content',
   schema: z.object({
     name: z.string(),
     role: z.string(),
-    image: z.string().optional(),
-    linkedin: z.string().optional(),
-    github: z.string().optional(),
-    twitter: z.string().optional(),
     email: z.string().optional(),
-    website: z.string().optional(),
-    order: z.number().default(100), // Lower numbers come first
-    isPast: z.boolean().default(false),
-    pastNames: z.array(z.string()).optional(), // For listing multiple past students in one file
+    order: z.number().optional(),
   }),
 });
 
-const publicationsCollection = defineCollection({
+// Configuration for Alumni Members
+const alumniCollection = defineCollection({
   type: 'content',
   schema: z.object({
-    title: z.string(),
-    authors: z.string(),
-    journal: z.string(),
-    year: z.number(),
-    link: z.string().url(),
-    order: z.number().default(100),
-  }),
-});
-
-const newsCollection = defineCollection({
-  type: 'content',
-  schema: z.object({
-    title: z.string(),
-    date: z.string(), // e.g., "FEBRUARY 2026"
-    isHighlight: z.boolean().default(false),
-    order: z.number().default(100),
-  }),
-});
-
-const projectCollection = defineCollection({
-  type: 'content',
-  schema: z.object({
-    title: z.string(),
-    order: z.number().default(100),
+    name: z.string(),
+    role: z.string(),
+    order: z.number().optional(),
   }),
 });
 
 export const collections = {
-  'research': researchCollection,
   'team': teamCollection,
-  'publications': publicationsCollection,
-  'news': newsCollection,
-  'projects': projectCollection,
+  'alumni': alumniCollection,
 };
