@@ -10,12 +10,14 @@ import Navigation from '../components/Navigation.astro';
   <Navigation />
 
   <div class="main-content-wrapper">
+    <!-- Header Stage -->
     <header class="team-header max-width-wrapper">
       <div class="section-label">LABORATORY ROSTER</div>
       <h1>Investigative Roster</h1>
       <p class="subtitle">The minds parsing complex viral data matrices, structural phenotypes, and molecular topography.</p>
     </header>
 
+    <!-- PRINCIPAL INVESTIGATOR SECTION (Dr. Muzafar Jan) -->
     <section class="pi-section max-width-wrapper">
       <div class="pi-card">
         <div class="pi-glow"></div>
@@ -32,30 +34,82 @@ import Navigation from '../components/Navigation.astro';
       </div>
     </section>
 
+    <!-- RESEARCH INTERNS GRID -->
     <section class="members-section max-width-wrapper">
-      <div class="section-label-mid">RESEARCH COHORT</div>
+      <div class="section-label-mid">ACTIVE RESEARCH COHORT</div>
       
       <div class="members-grid">
         
+        <!-- Member 1: Mir Tuha Sana -->
         <div class="member-card">
-          <div class="member-badge">BIOPHYSICS</div>
-          <h3>Uzair Ibrahim Bhat</h3>
-          <p class="member-role">Research Associate</p>
-          <p class="member-desc">Specializes in running interactive 3D vector matrices and parsing computational protein-ligand docking models.</p>
+          <div class="member-badge">TECHNICAL LEAD</div>
+          <h3>Mir Tuha Sana</h3>
+          <p class="member-role">Technical Lead & Research Intern</p>
+          <p class="member-desc">Manages the laboratory's web infrastructure, digital resources, and technical repositories while actively pursuing core scientific investigations as a research intern.</p>
+          <div class="member-email">✉️ Mirtuha9682@gmail.com</div>
         </div>
 
+        <!-- Member 2: Shahid Showkat -->
         <div class="member-card panel-emerald">
-          <div class="member-badge badge-emerald">GENOMICS</div>
-          <h3>Danish Nazir</h3>
-          <p class="member-role">Research Assistant</p>
-          <p class="member-desc">Focuses on analyzing viral sequence datasets, phylogenetic mapping, and structural point mutation analysis.</p>
+          <div class="member-badge badge-emerald">BIOCHEMISTRY</div>
+          <h3>Shahid Showkat</h3>
+          <p class="member-role">Research Intern</p>
+          <p class="member-desc">Combines extensive expertise across both wet-lab molecular assays and computational dry-lab structural environments, commanding the deep, foundational knowledge of macromolecular mechanics that truly defines a modern biochemistry scholar.</p>
+          <div class="member-email">✉️ Shayan287472@gmail.com</div>
         </div>
 
+        <!-- Member 3: Urooba Sadiq -->
         <div class="member-card panel-purple">
-          <div class="member-badge badge-purple">TRAINEE</div>
-          <h3>Lab Cohort Placeholder</h3>
-          <p class="member-role">Biochemistry Scholar</p>
-          <p class="member-desc">Assisting with traditional wet-lab target amplification arrays, PCR setups, and cell culture logs.</p>
+          <div class="member-badge badge-purple">RESEARCH INTERN</div>
+          <h3>Urooba Sadiq</h3>
+          <p class="member-role">Research Intern</p>
+          <p class="member-desc">Assisting with sample preparation pipelines, target amplification controls, and assay documentation.</p>
+          <div class="member-email">✉️ Uroobasadiq194@gmail.com</div>
+        </div>
+
+        <!-- Member 4: Tooba Jan -->
+        <div class="member-card panel-purple">
+          <div class="member-badge badge-purple">RESEARCH INTERN</div>
+          <h3>Tooba Jan</h3>
+          <p class="member-role">Research Intern</p>
+          <p class="member-desc">Investigating viral replication trajectories and tracking mutational variances within isolates.</p>
+          <div class="member-email">✉️ toobajan8082@gmail.com</div>
+        </div>
+
+        <!-- Member 5: Umaid Mir -->
+        <div class="member-card">
+          <div class="member-badge">RESEARCH INTERN</div>
+          <h3>Umaid Mir</h3>
+          <p class="member-role">Research Intern</p>
+          <p class="member-desc">Managing computational platform environments and archiving high-density sequence strings.</p>
+          <div class="member-email">✉️ umaidmir635@gmail.com</div>
+        </div>
+
+        <!-- Member 6: Mohsin Anjum -->
+        <div class="member-card panel-emerald">
+          <div class="member-badge badge-emerald">RESEARCH INTERN</div>
+          <h3>Mohsin Anjum</h3>
+          <p class="member-role">Research Intern</p>
+          <p class="member-desc">Overseeing laboratory chemical matrices, calibration safety grids, and processing frameworks.</p>
+          <div class="member-email">✉️ Mosin09@yahoo.com</div>
+        </div>
+
+        <!-- Member 7: Mehak Maqbool -->
+        <div class="member-card panel-purple">
+          <div class="member-badge badge-purple">RESEARCH INTERN</div>
+          <h3>Mehak Maqbool</h3>
+          <p class="member-role">Research Intern</p>
+          <p class="member-desc">Studying structural variations inside surface envelope glycoproteins and carbohydrate shield models.</p>
+          <div class="member-email">✉️ mehakmaqbool99@gmail.com</div>
+        </div>
+
+        <!-- Member 8: Tehniyat Farooq -->
+        <div class="member-card">
+          <div class="member-badge">RESEARCH INTERN</div>
+          <h3>Tehniyat Farooq</h3>
+          <p class="member-role">Research Intern</p>
+          <p class="member-desc">Tracing evolutionary maps of pathogenic strains using computational branch vector scoring tools.</p>
+          <div class="member-email">✉️ tehniyatrather@gmail.com</div>
         </div>
 
       </div>
@@ -92,7 +146,6 @@ import Navigation from '../components/Navigation.astro';
     padding: 0 24px;
   }
 
-  /* Header Section */
   .team-header {
     text-align: center;
     padding: 60px 24px 40px;
@@ -124,7 +177,6 @@ import Navigation from '../components/Navigation.astro';
     font-weight: 300;
   }
 
-  /* Principal Investigator Hero Card */
   .pi-section {
     padding-bottom: 60px;
   }
@@ -189,7 +241,6 @@ import Navigation from '../components/Navigation.astro';
     font-family: monospace;
   }
 
-  /* Cohort Grid Layout */
   .members-section {
     padding: 40px 24px 120px;
     border-top: 1px solid var(--border-glass);
@@ -220,12 +271,9 @@ import Navigation from '../components/Navigation.astro';
     transition: transform 0.3s ease, border-color 0.3s ease;
   }
 
-  .member-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(56, 189, 248, 0.2);
-  }
-  .member-card.panel-emerald:hover { border-color: rgba(52, 211, 153, 0.2); }
-  .member-card.panel-purple:hover { border-color: rgba(168, 85, 247, 0.2); }
+  .member-card:hover { transform: translateY(-4px); border-color: rgba(56, 189, 248, 0.25); }
+  .member-card.panel-emerald:hover { border-color: rgba(52, 211, 153, 0.25); }
+  .member-card.panel-purple:hover { border-color: rgba(168, 85, 247, 0.25); }
 
   .member-badge {
     font-size: 0.65rem;
@@ -237,31 +285,46 @@ import Navigation from '../components/Navigation.astro';
     border-radius: 4px;
     align-self: flex-start;
     margin-bottom: 20px;
+    text-transform: uppercase;
   }
   .member-badge.badge-emerald { color: var(--neon-emerald); background: rgba(52, 211, 153, 0.06); }
   .member-badge.badge-purple { color: var(--neon-purple); background: rgba(168, 85, 247, 0.06); }
 
   .member-card h3 {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: #fff;
     margin: 0 0 4px 0;
   }
 
   .member-role {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #e5e7eb;
     margin: 0 0 16px 0;
+    font-weight: 500;
   }
 
   .member-desc {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: var(--text-muted);
     line-height: 1.6;
-    margin: 0;
+    margin-bottom: 20px;
   }
 
-  @media (max-width: 968px) {
+  .member-email {
+    margin-top: auto;
+    font-size: 0.75rem;
+    font-family: monospace;
+    color: #4b5563;
+  }
+  .member-card:hover .member-email {
+    color: #94a3b8;
+  }
+
+  @media (max-width: 1024px) {
+    .members-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
     .members-grid { grid-template-columns: 1fr; }
     .pi-card { padding: 32px; }
     .pi-contact-row { flex-direction: column; gap: 8px; }
