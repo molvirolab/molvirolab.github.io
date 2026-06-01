@@ -1,6 +1,6 @@
 ---
 name: "Umaid yaseen Mir"
-role: "Research Intern"
+role: "Research"
 email: "umaidmir635@gmail.com"
 order: 6
 isPast: false

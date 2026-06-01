@@ -1,6 +1,6 @@
 ---
 name: "Urooba Sadiq"
-role: "Research Intern"
+role: "Research"
 email: "Uroobasadiq194@gmail.com"
 order: 3
 isPast: false

@@ -1,6 +1,6 @@
 ---
 name: "Mehak Maqbool"
-role: "Research Intern"
+role: "Research"
 email: "mehakmaqbool99@gmail.com"
 order: 8
 isPast: false

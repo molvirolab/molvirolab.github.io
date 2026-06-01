@@ -1,6 +1,6 @@
 ---
 name: "Tahniyat Farooq"
-role: "Research Intern"
+role: "Research"
 email: "tehniyatrather@gmail.com"
 order: 4
 isPast: false

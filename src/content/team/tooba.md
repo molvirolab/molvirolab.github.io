@@ -1,6 +1,6 @@
 ---
 name: "Tooba Jan"
-role: "Research Intern"
+role: "Research"
 email: "toobajan8082@gmail.com"
 order: 5
 isPast: false

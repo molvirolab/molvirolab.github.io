@@ -1,6 +1,6 @@
 ---
 name: "Mir Tuha Sana"
-role: "Technical Lead & Research Intern"
+role: "Technical Lead & Research"
 image: "/images/team/placeholder.jpg"
 email: "Mirtuha9682@gmail.com"
 order: 1
