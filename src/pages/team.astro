@@ -67,7 +67,7 @@ const renderedAlumni = await Promise.all(
       <div class="members-grid">
         {renderedActive.map(({ data, Content }) => (
           <div class="member-card">
-            <div class="member-badge">RESEARCH INTERN</div>
+            <div class="member-badge">{data.role}</div>
             <h3>{data.name}</h3>
             <p class="member-role">{data.role}</p>
             <div class="member-desc"><Content /></div>
