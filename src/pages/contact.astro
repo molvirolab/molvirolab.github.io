@@ -1,0 +1,276 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Navigation from '../components/Navigation.astro';
+---
+
+<MainLayout 
+  title="Contact & Portals | Molecular Virology Lab"
+  description="Connect with our research team or review academic application criteria at SP College Srinagar."
+>
+  <Navigation />
+  
+  <div class="contact-container">
+    <!-- Header -->
+    <header class="section-header fade-up">
+      <span class="section-title">PORTAL PATHWAYS</span>
+      <h1>Contact & Joins</h1>
+      <p class="subtitle">Select the appropriate gateway below to communicate with our researchers or submit credentials to the laboratory.</p>
+    </header>
+
+    <!-- The Two Separate Channels (Students vs Others) -->
+    <div class="portals-grid fade-up">
+      
+      <!-- Card 1: For Students -->
+      <div class="portal-card student-accent">
+        <div class="card-glow"></div>
+        <span class="portal-tag">🎓 ACADEMIC ADMISSIONS</span>
+        <h2>Prospective Students & Scholars</h2>
+        <p class="portal-desc">This channel is reserved for undergraduate, post-graduate, and independent researchers seeking dissertation slots or rigorous laboratory training blocks.</p>
+        
+        <div class="requirements-box">
+          <h4>Required Submission Dossier:</h4>
+          <ul>
+            <li><strong>Curriculum Vitae (CV):</strong> Itemizing your academic trajectory, technical methods, and core bio-science skills.</li>
+            <li><strong>Statement of Purpose (Max 500 words):</strong> Articulating your explicit interest in molecular virology and training goals.</li>
+            <li><strong>Academic Transcripts:</strong> Copies of your recent university marks cards.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Card 2: For Collaborators / Others -->
+      <div class="portal-card collaborator-accent">
+        <div class="card-glow"></div>
+        <span class="portal-tag">🔬 STRATEGIC ALLIANCES</span>
+        <h2>Collaborators & Peer PIs</h2>
+        <p class="portal-desc">This channel handles inquiries from principal investigators, institutional directors, healthcare networks, and global research consortia.</p>
+        
+        <div class="requirements-box">
+          <h4>Areas of Shared Inquiry:</h4>
+          <ul>
+            <li><strong>Joint Research Proposals:</strong> Co-authoring grant applications for national and international funding bodies.</li>
+            <li><strong>Material Transfer Agreements:</strong> Sharing viral surveillance protocols or diagnostic data sets.</li>
+            <li><strong>Interdisciplinary Networking:</strong> Partnering on regional pathology mappings or cellular mechanisms.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Section: Message Form & Location -->
+    <div class="communications-grid fade-up">
+      <div class="form-wrapper">
+        <h3>Direct Communications Hub</h3>
+        <form class="lab-form" onsubmit="event.preventDefault(); alert('Message framework active.');">
+          <div class="form-field">
+            <label>Full Name</label>
+            <input type="text" required placeholder="Your Name or Institution" />
+          </div>
+          <div class="form-field">
+            <label>Email Address</label>
+            <input type="email" required placeholder="name@domain.com" />
+          </div>
+          <div class="form-field">
+            <label>Message</label>
+            <textarea rows="4" required placeholder="Outline the purpose of your communication..."></textarea>
+          </div>
+          <button type="submit" class="send-btn">DELIVER DISPATCH <span>→</span></button>
+        </form>
+      </div>
+
+      <div class="coordinates-box">
+        <span class="portal-tag">📍 PHYSICAL LOCATION</span>
+        <h3>Laboratory Coordinates</h3>
+        <p class="loc-text">
+          Molecular Virology Laboratory<br/>
+          Department of Bio-Sciences<br/>
+          Sri Pratap (SP) College Srinagar<br/>
+          M.A. Road, Srinagar, Jammu & Kashmir, 190001
+        </p>
+      </div>
+    </div>
+
+  </div>
+</MainLayout>
+
+<style>
+  .contact-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 120px 40px 40px;
+  }
+  .section-header {
+    margin-bottom: 60px;
+    max-width: 800px;
+  }
+  .section-title {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: #6366f1;
+    text-transform: uppercase;
+  }
+  .section-header h1 {
+    font-size: clamp(3.5rem, 8vw, 5.5rem);
+    line-height: 1;
+    font-weight: 700;
+    margin: 1.5rem 0;
+    color: #fff;
+  }
+  .subtitle {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #a1a1aa;
+  }
+
+  /* Separate Portal Grids */
+  .portals-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 60px;
+  }
+  @media (max-width: 968px) {
+    .portals-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .portal-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 50px 40px;
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .portal-tag {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    display: block;
+    margin-bottom: 20px;
+  }
+  .student-accent .portal-tag { color: #38bdf8; }
+  .collaborator-accent .portal-tag { color: #a855f7; }
+
+  .portal-card h2 {
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+  .portal-desc {
+    color: #a1a1aa;
+    line-height: 1.6;
+    font-size: 1.05rem;
+    margin-bottom: 30px;
+  }
+  .requirements-box h4 {
+    color: #fff;
+    font-size: 1.05rem;
+    margin-bottom: 15px;
+  }
+  .requirements-box ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .requirements-box li {
+    color: #71717a;
+    line-height: 1.5;
+    font-size: 0.95rem;
+    position: relative;
+    padding-left: 15px;
+  }
+  .requirements-box li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: rgba(255, 255, 255, 0.3);
+  }
+  .requirements-box strong {
+    color: #d4d4d8;
+  }
+
+  /* Communication & Location Blocks */
+  .communications-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 60px;
+  }
+  @media (max-width: 968px) {
+    .communications-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .form-wrapper h3 {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 25px;
+  }
+  .lab-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .form-field label {
+    font-size: 0.75rem;
+    color: #a1a1aa;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .form-field input, .form-field textarea {
+    background: #09090b;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 14px 18px;
+    color: #fff;
+    border-radius: 10px;
+    font-size: 1rem;
+  }
+  .form-field input:focus, .form-field textarea:focus {
+    outline: none;
+    border-color: #6366f1;
+  }
+  .send-btn {
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 16px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.3s ease;
+  }
+  .send-btn:hover {
+    background: #6366f1;
+    color: #fff;
+  }
+  .coordinates-box {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    padding: 40px;
+    border-radius: 20px;
+    height: max-content;
+  }
+  .coordinates-box h3 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 15px;
+  }
+  .loc-text {
+    color: #a1a1aa;
+    line-height: 1.7;
+    font-size: 1.05rem;
+  }
+</style>
