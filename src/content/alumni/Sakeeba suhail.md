@@ -1,9 +1,6 @@
-name: "Sakeeba suhail"
-role: "Worked for 6 months in lab"
+---
+name: "Sakeeba Suhail"
+role: "Former Research Trainee"
 order: 11
-isPast: true 
-Worked on designing and validating  dual reporter HIV 1 vector
-Designed primers for site directed mytagenesis as well as simple amplification primers
-Learned primer designing
-Benchling operations
-Snapgene
+---
+Focused on structural variations and computational analysis of viral isolates during her research tenure.
