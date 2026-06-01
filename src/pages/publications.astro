@@ -1,0 +1,131 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import { getCollection } from 'astro:content';
+
+const publications = await getCollection('publications');
+const sortedPublications = publications.sort((a, b) => b.data.year - a.data.year);
+---
+
+<MainLayout 
+  title="Publications | Molecular Virology Lab"
+  description="Formal research publications and peer-reviewed literature from the lab."
+>
+  <Navigation />
+  
+  <div class="research-container">
+    <header class="section-header fade-up">
+      <span class="section-title">CHRONOLOGY</span>
+      <h1>Publications</h1>
+      <p class="subtitle">A comprehensive archive of our peer-reviewed research papers, letters, and global scientific contributions.</p>
+    </header>
+
+    <section class="publications-section fade-up">
+      <div class="pub-list">
+        {sortedPublications.map((pub, index) => (
+          <div class="pub-item fade-up" style={`animation-delay: ${index * 0.05}s`}>
+            <div class="pub-year">{pub.data.year}</div>
+            <div class="pub-body">
+              <h3>{pub.data.title}</h3>
+              <div class="pub-meta">
+                <span class="authors">{pub.data.authors}</span>
+                <span class="journal">{pub.data.journal}</span>
+              </div>
+              {pub.data.link && (
+                <a href={pub.data.link} target="_blank" class="pub-link">
+                  VIEW PUBLICATION <span>→</span>
+                </a>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+</MainLayout>
+
+<style>
+  .research-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 100px 40px 40px;
+  }
+  .section-header {
+    margin-bottom: 40px;
+    max-width: 800px;
+  }
+  .section-title {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: #6366f1;
+    text-transform: uppercase;
+  }
+  .section-header h1 {
+    font-size: clamp(3.5rem, 8vw, 6rem);
+    line-height: 1;
+    font-weight: 700;
+    margin: 1.5rem 0;
+    color: #fff;
+  }
+  .subtitle {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: #a1a1aa;
+  }
+  .publications-section {
+    margin-top: 40px;
+  }
+  .pub-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .pub-item {
+    display: flex;
+    gap: 40px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    transition: all 0.6s ease;
+  }
+  .pub-year {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #a1a1aa;
+    min-width: 80px;
+  }
+  .pub-body h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .pub-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 15px;
+  }
+  .authors {
+    color: #a1a1aa;
+  }
+  .journal {
+    color: #6366f1;
+    font-style: italic;
+  }
+  .pub-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: gap 0.3s ease;
+  }
+  .pub-link:hover span {
+    transform: translateX(5px);
+  }
+</style>
