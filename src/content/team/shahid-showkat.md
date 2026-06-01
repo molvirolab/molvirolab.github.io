@@ -1,6 +1,6 @@
 ---
 name: "Shahid Showkat"
-role: "Research Intern"
+role: "Research"
 image: "/images/team/placeholder.jpg"
 email: "Shayan287472@gmail.com"
 order: 1
