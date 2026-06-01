@@ -1,6 +1,6 @@
 ---
 name: "Mohsin Anjum"
-role: "Research Intern"
+role: "Research"
 email: "Mosin09@yahoo.com"
 order: 7
 isPast: false
