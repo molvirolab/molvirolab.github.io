@@ -14,7 +14,7 @@ import Navigation from '../components/Navigation.astro';
     <header class="section-header fade-up">
       <span class="section-title">PORTAL PATHWAYS</span>
       <h1>Contact & Joins</h1>
-      <p class="subtitle">Select the appropriate gateway below to communicate with our researchers or submit credentials to the laboratory.</p>
+      <p class="subtitle">Review the guidelines below and submit your documents directly to our lab administration.</p>
     </header>
 
     <!-- The Two Separate Channels (Students vs Others) -->
@@ -22,7 +22,6 @@ import Navigation from '../components/Navigation.astro';
       
       <!-- Card 1: For Students -->
       <div class="portal-card student-accent">
-        <div class="card-glow"></div>
         <span class="portal-tag">🎓 ACADEMIC ADMISSIONS</span>
         <h2>Prospective Students & Scholars</h2>
         <p class="portal-desc">This channel is reserved for undergraduate, post-graduate, and independent researchers seeking dissertation slots or rigorous laboratory training blocks.</p>
@@ -35,11 +34,16 @@ import Navigation from '../components/Navigation.astro';
             <li><strong>Academic Transcripts:</strong> Copies of your recent university marks cards.</li>
           </ul>
         </div>
+
+        <!-- Direct Action Email Link -->
+        <div class="email-action-block">
+          <span class="action-label">📬 SUBMIT DOSSIER TO:</span>
+          <a href="mailto:muzafarjan@gmail.com" class="portal-email-link">muzafarjan@gmail.com</a>
+        </div>
       </div>
 
       <!-- Card 2: For Collaborators / Others -->
       <div class="portal-card collaborator-accent">
-        <div class="card-glow"></div>
         <span class="portal-tag">🔬 STRATEGIC ALLIANCES</span>
         <h2>Collaborators & Peer PIs</h2>
         <p class="portal-desc">This channel handles inquiries from principal investigators, institutional directors, healthcare networks, and global research consortia.</p>
@@ -52,31 +56,18 @@ import Navigation from '../components/Navigation.astro';
             <li><strong>Interdisciplinary Networking:</strong> Partnering on regional pathology mappings or cellular mechanisms.</li>
           </ul>
         </div>
+
+        <!-- Direct Action Email Link -->
+        <div class="email-action-block">
+          <span class="action-label">✉️ INITIATE DIALOGUE VIA:</span>
+          <a href="mailto:muzafarjan@gmail.com" class="portal-email-link">muzafarjan@gmail.com</a>
+        </div>
       </div>
 
     </div>
 
-    <!-- Bottom Section: Message Form & Location -->
-    <div class="communications-grid fade-up">
-      <div class="form-wrapper">
-        <h3>Direct Communications Hub</h3>
-        <form class="lab-form" onsubmit="event.preventDefault(); alert('Message framework active.');">
-          <div class="form-field">
-            <label>Full Name</label>
-            <input type="text" required placeholder="Your Name or Institution" />
-          </div>
-          <div class="form-field">
-            <label>Email Address</label>
-            <input type="email" required placeholder="name@domain.com" />
-          </div>
-          <div class="form-field">
-            <label>Message</label>
-            <textarea rows="4" required placeholder="Outline the purpose of your communication..."></textarea>
-          </div>
-          <button type="submit" class="send-btn">DELIVER DISPATCH <span>→</span></button>
-        </form>
-      </div>
-
+    <!-- Bottom Section: LocationCoordinates -->
+    <div class="coordinates-section fade-up">
       <div class="coordinates-box">
         <span class="portal-tag">📍 PHYSICAL LOCATION</span>
         <h3>Laboratory Coordinates</h3>
@@ -126,7 +117,7 @@ import Navigation from '../components/Navigation.astro';
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 40px;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
   }
   @media (max-width: 968px) {
     .portals-grid {
@@ -138,8 +129,8 @@ import Navigation from '../components/Navigation.astro';
     border: 1px solid rgba(255, 255, 255, 0.05);
     padding: 50px 40px;
     border-radius: 24px;
-    position: relative;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
   .portal-tag {
     font-size: 0.7rem;
@@ -162,6 +153,10 @@ import Navigation from '../components/Navigation.astro';
     line-height: 1.6;
     font-size: 1.05rem;
     margin-bottom: 30px;
+  }
+  .requirements-box {
+    flex-grow: 1;
+    margin-bottom: 40px;
   }
   .requirements-box h4 {
     color: #fff;
@@ -192,76 +187,42 @@ import Navigation from '../components/Navigation.astro';
     color: #d4d4d8;
   }
 
-  /* Communication & Location Blocks */
-  .communications-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 40px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding-top: 60px;
-  }
-  @media (max-width: 968px) {
-    .communications-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-  .form-wrapper h3 {
-    font-size: 1.8rem;
-    color: #fff;
-    margin-bottom: 25px;
-  }
-  .lab-form {
+  /* Email Action Block Styling */
+  .email-action-block {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 20px 25px;
+    border-radius: 14px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 5px;
   }
-  .form-field {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .form-field label {
-    font-size: 0.75rem;
-    color: #a1a1aa;
-    text-transform: uppercase;
+  .action-label {
+    font-size: 0.7rem;
+    font-weight: 700;
     letter-spacing: 0.1em;
+    color: #71717a;
   }
-  .form-field input, .form-field textarea {
-    background: #09090b;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 14px 18px;
-    color: #fff;
-    border-radius: 10px;
-    font-size: 1rem;
-  }
-  .form-field input:focus, .form-field textarea:focus {
-    outline: none;
-    border-color: #6366f1;
-  }
-  .send-btn {
-    background: #fff;
-    color: #000;
-    border: none;
-    padding: 16px;
-    border-radius: 10px;
+  .portal-email-link {
+    font-size: 1.25rem;
     font-weight: 600;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    transition: background 0.3s ease;
-  }
-  .send-btn:hover {
-    background: #6366f1;
     color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .student-accent .portal-email-link:hover { color: #38bdf8; }
+  .collaborator-accent .portal-email-link:hover { color: #a855f7; }
+
+  /* Coordinates */
+  .coordinates-section {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 40px;
   }
   .coordinates-box {
     background: rgba(255, 255, 255, 0.01);
     border: 1px solid rgba(255, 255, 255, 0.03);
     padding: 40px;
     border-radius: 20px;
-    height: max-content;
   }
   .coordinates-box h3 {
     font-size: 1.5rem;
