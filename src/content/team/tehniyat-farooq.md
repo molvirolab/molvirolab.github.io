@@ -1,5 +1,5 @@
 ---
-name: "Tehniyat Farooq"
+name: "Tahniyat Farooq"
 role: "Research Intern"
 email: "tehniyatrather@gmail.com"
 order: 4
