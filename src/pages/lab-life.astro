@@ -1,13 +1,196 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import Navigation from '../components/Navigation.astro';
+
+// Complete index of all your uploaded lab media across your folders
+const labMedia = [
+  // --- LAB VIDEOS (.mp4) ---
+  { name: "WhatsApp Video 2026-06-03 at 8.02.43 PM.mp4", type: "video" },
+  { name: "WhatsApp Video 2026-06-03 at 8.02.48 PM.mp4", type: "video" },
+
+  // --- CLEAN NUMBERED BATCH ---
+  { name: "lab1.jpg (2).jpeg", type: "image" },
+  { name: "lab1.jpg.jpeg", type: "image" },
+  { name: "lab2.jpg.jpeg", type: "image" },
+  { name: "lab3.jpg.jpeg", type: "image" },
+  { name: "lab4.jpg.jpeg", type: "image" },
+  { name: "lab5.jpg.jpeg", type: "image" },
+  { name: "lab6.jpg.jpeg", type: "image" },
+  { name: "lab7.jpg.jpeg", type: "image" },
+  { name: "lab8.jpg.jpeg", type: "image" },
+  { name: "lab9.jpg.jpeg", type: "image" },
+  { name: "lab10.jpg.jpeg", type: "image" },
+
+  // --- WHATSAPP PHOTO LOGS ---
+  { name: "WhatsApp Image 2026-06-03 at 8.02.42 PM.jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.02.43 PM.jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.02.44 PM.jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.02.44 PM (1).jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.02.45 PM.jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.02.45 PM (1).jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.02.46 PM.jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.02.46 PM (1).jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.02.47 PM.jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.02.47 PM (1).jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.02.47 PM (2).jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.02.48 PM.jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.02.48 PM (1).jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.03.29 PM.jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.03.29 PM (2).jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.03.30 PM.jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.03.31 PM.jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.03.31 PM (1).jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.03.31 PM (2).jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.03.31 PM (3).jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.03.32 PM.jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.03.33 PM.jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.03.33 PM (1).jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.03.34 PM.jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.03.34 PM (1).jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.03.35 PM.jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.03.36 PM.jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.03.36 PM (1).jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.03.36 PM (2).jpeg", type: "image" },
+  { name: "WhatsApp Image 2026-06-03 at 8.03.38 PM.jpeg", type: "image" }
+];
 ---
-<MainLayout title="Lab Life | Molecular Virology Lab">
-  <section class="py-12 max-w-4xl mx-auto px-4 text-white">
-    <h1 class="text-4xl font-bold mb-4">Lab Life & Gallery</h1>
-    <p class="text-zinc-400 mb-8">A look inside our daily operations, culture, and collaborative spirit at the Interdisciplinary Research Centre (IRC).</p>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-zinc-900 p-6 rounded-xl border border-zinc-800">
-      <p class="text-zinc-500 italic">Gallery module initialized. Ready for your first photo uploads!</p>
+
+<MainLayout 
+  title="Lab Life Gallery | Molecular Virology Lab"
+  description="A visual look inside our active molecular research benches, diagnostic frameworks, and teamwork loops."
+>
+  <Navigation />
+  
+  <div class="gallery-container">
+    <header class="section-header">
+      <span class="section-title">LAB LIFE IN FOCUS</span>
+      <h1>Benches & Chronicles</h1>
+      <p class="subtitle">A real-time visual window into our laboratory operations, cellular cultures, and daily research workflows.</p>
+    </header>
+
+    <div class="gallery-grid">
+      {labMedia.map((item, index) => (
+        <div class="gallery-card">
+          <div class="media-wrapper">
+            {item.type === "video" ? (
+              <video 
+                src={`/images/lab-life/${item.name}`} 
+                controls 
+                preload="metadata"
+                playsinline
+                class="lab-video"
+              ></video>
+            ) : (
+              <img 
+                src={`/images/lab-life/${item.name}`} 
+                alt={`Molecular Virology Laboratory Session Content - Record ${index + 1}`}
+                loading="lazy"
+              />
+            )}
+          </div>
+          <div class="card-overlay">
+            <span class="frame-tag">
+              {item.type === "video" ? "📹 VIDEO RECORD" : `🔬 CELL FRAME // ${index + 1 < 10 ? `0${index + 1}` : index + 1}`}
+            </span>
+          </div>
+        </div>
+      ))}
     </div>
-  </section>
+  </div>
 </MainLayout>
+
+<style>
+  .gallery-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 120px 40px 60px;
+  }
+  .section-header {
+    margin-bottom: 60px;
+    max-width: 700px;
+  }
+  .section-title {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: #38bdf8;
+    text-transform: uppercase;
+  }
+  .section-header h1 {
+    font-size: clamp(3.5rem, 8vw, 5.5rem);
+    line-height: 1;
+    font-weight: 700;
+    margin: 1.5rem 0;
+    color: #fff;
+  }
+  .subtitle {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #a1a1aa;
+  }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+  }
+  @media (max-width: 480px) {
+    .gallery-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+  .gallery-card {
+    position: relative;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+  }
+  .gallery-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(56, 189, 248, 0.3);
+  }
+  .media-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .gallery-card img, .lab-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .gallery-card:hover img {
+    transform: scale(1.05);
+  }
+  .lab-video {
+    object-fit: contain;
+  }
+  .card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .gallery-card:hover .card-overlay {
+    opacity: 1;
+  }
+  .frame-tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #38bdf8;
+  }
+</style>
