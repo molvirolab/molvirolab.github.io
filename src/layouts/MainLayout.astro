@@ -6,7 +6,14 @@ const { title, description } = Astro.props;
 <!DOCTYPE html>
 <html lang="en">
   <head>
+ <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <meta name="google-site-verification" content="YOUR_SECRET_CODE_FROM_GOOGLE" />
+
+    <title>{title || "Molecular Virology Lab"}</title>  
+<meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title || "Molecular Virology Lab"}</title>
     <meta name="description" content={description || "Decoding Virus Pathogenesis — Interactive Structural Biology Ecosystem."} />
